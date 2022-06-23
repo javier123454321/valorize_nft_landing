@@ -17,7 +17,7 @@
     <section id="hero">
         <div class="flex flex-col items-center z-20">
             <div class="absolute z-10 w-screen overflow-hidden object-right flex justify-center">
-                <img src="dist/img/hero.png" class="w-[250vw] md:w-[200vw] lg:w-screen max-w-none" alt="" srcset="">
+                <img src="dist/img/hero.png" class="w-[250vw] md:w-[200vw] lg:w-screen max-w-none opacity-0" intersect-class="fade slow" alt="" srcset="">
             </div>
             <div id="hero-image-filter" class="z-20 w-screen">
                 <h1 class="z-10 text-black font-black max-w-2xl mx-auto text-center mt-32 text-3xl xl:text-5xl ">2 NFTs
@@ -40,10 +40,12 @@
                     class="z-30 text-black font-black text-3xl text-center max-w-lg mx-auto mt-12 pb-48 sm:pb-56 lg:pb-72">
                     The Product Collection Coming August
                 </h3>
-                <div
-                    class="border-black border-2 p-2 mx-auto absolute z-20 left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
-                    <div class="border-black border-2 p-2">
-                        <img src="dist/img/tree.png" alt="" srcset="" class="w-96">
+                <div class="opacity-0" intersect-class="slide-left fade">
+                    <div
+                        class="border-black border-2 p-2 mx-auto absolute z-20 left-[50%] transform -translate-x-[50%] -translate-y-[50%]">
+                        <div class="border-black border-2 p-2">
+                            <img src="dist/img/tree.png" alt="" srcset="" class="w-96">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,7 +130,12 @@
     </section>
     <section class="bg-vpurple-100 sm:px-8 py-12 relative">
         <h2 class="font-black text-3xl">Our Product Roadmap</h2>
-        <img src="dist/img/roadmap_product.png" class="z-10 relative 2xl:max-w-7xl mx-auto" alt="" srcset="">
+        <div class="relative z-10">
+            <img src="dist/img/roadmap_product.png" 
+                class="2xl:max-w-7xl mx-auto opacity-0" 
+                intersect-class="slide-left fade"
+            >
+        </div>
         <div
             class="bg-vpurple-100 text-center flex flex-col items-center justify-center relative z-0 h-[40vh] sm:h-[75vh]">
             <h2 class="font-black text-3xl xl:text-5xl z-10 mt-12 sm:mt-48">Membership Collection Coming August</h2>
@@ -148,11 +155,11 @@
         </div>
     </section>
     <section class="bg-green-50 px-4 xl:px-24 py-20">
-        <h2 class="font-black text-3xl pb-20 xl:pl-24">Our Membership Roadmap</h2>
-        <img src="dist/img/roadmap_membership.png" class="2xl:max-w-7xl mx-auto" alt="" srcset="">
+        <h2 class="font-black text-3xl xl:pl-24">Our Membership Roadmap</h2>
+        <img src="dist/img/roadmap_membership.png" class="2xl:max-w-7xl mx-auto mt-8 opacity-0" intersect-class="slide-left fade">
     </section>
     <section class="bg-vpurple-100">
-        <h2 class="text-center font-black text-3xl xl:text-5xl pt-48">
+        <h2 class="text-center font-black text-3xl xl:text-5xl pt-20 lg:pt-48">
             Product NFT + <br>
             Membership NFT = <br>
             UNITY NFT
@@ -177,6 +184,30 @@
         </form>
     </section>
 </body>
+<script>
+    const initialClasses = {}
+    const intersected = document.querySelectorAll("*[intersect-class]")
+    intersected.forEach((intersection, index) => {
+        console.log(intersection.className)
+        intersection.setAttribute("i-index", index)
+        !intersection.classList.contains("intersection-animated") && intersection.classList.add("intersection-animated")
+        initialClasses[index] = intersection.className
+    })
+    console.log({ initialClasses })
+
+    const observer = new IntersectionObserver((intersected) => {
+        intersected.forEach((entry) => {
+            const elementIndex = entry.target.getAttribute("i-index")
+            if (entry.isIntersecting) {
+                entry.target.className = `${initialClasses[elementIndex]} ${entry.target.attributes["intersect-class"].value}`
+            }
+            else entry.target.className = initialClasses[elementIndex]
+        })
+    })
+    intersected.forEach(intersection => {
+        observer.observe(intersection)
+    })
+</script>
 <style>
     #hero-image-filter {
         background: linear-gradient(90deg, rgba(255, 255, 255, 0) -12.66%, rgba(255, 255, 255, 0.8) 50.4%, rgba(255, 255, 255, 0) 110.25%);
@@ -184,6 +215,36 @@
 
     #hero-image2-filter {
         background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) -12.66%, rgba(255, 255, 255, 0.9) 50.4%, rgba(255, 255, 255, 0.9) 110.25%);
+    }
+
+    .slide-left {
+        animation: 1s ease-in-out forwards;
+        animation-name: slideL;
+    }
+
+    .fade {
+        opacity: 100%;
+        transition: all 1s smooth;
+    }
+
+    .slow {
+        transition-duration: 3s;
+    }
+    .intersection-animated {
+        transition-duration: 1s;
+        animation-duration: 1s;
+    }
+
+    @keyframes slideL {
+        from {
+            transform: translateX(20%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
 </style>
 
