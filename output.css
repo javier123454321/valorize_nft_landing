@@ -594,6 +594,10 @@ video {
   grid-column: span 1 / span 1;
 }
 
+.col-span-5 {
+  grid-column: span 5 / span 5;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -896,6 +900,10 @@ video {
     grid-column: span 3 / span 3;
   }
 
+  .lg\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
   .lg\:mb-40 {
     margin-bottom: 10rem;
   }
@@ -949,6 +957,10 @@ video {
 @media (min-width: 1536px) {
   .\32xl\:col-start-2 {
     grid-column-start: 2;
+  }
+
+  .\32xl\:col-start-1 {
+    grid-column-start: 1;
   }
 
   .\32xl\:max-w-7xl {
