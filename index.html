@@ -84,13 +84,28 @@
     <div class="fixed top-0 left-0 z-20 hidden" id="minting-modal" x-data="mintModal">
         <div class="grid grid-cols-10 bg-black bg-opacity-50 w-screen h-screen">
             <div class="bg-black col-span-8 col-start-2">
-                <h1 class="text-white font-black text-4xl py-4 text-center">
-                    Mint a <span  x-text="nft().title"></span> NFT
+                <h1 class="text-white font-black text-4xl py-4 text-center flex items-center justify-center">
+                    Mint a &nbsp;<span x-text="nft().title"></span>&nbsp; NFT
+                    <div @mouseover="() => showDescription = true" @mouseleave="() => showDescription = false">
+                        <div class="text-white opacity-70 ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="my-4"></div>
+                        <div x-transition x-show="showDescription" x-text="nft().description"
+                            class="absolute p-4 font-normal text-lg bg-slate-600 -ml-24 mr-24">
+                        </div>
+                    </div>
                 </h1>
-                <button class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <button data-toggleModal class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                      </svg>                                         
+                    </svg>
                 </button>
                 <div class="flex justify-around">
                     <button @click="previous"
@@ -113,8 +128,29 @@
                         </svg>
                     </button>
                 </div>
+                <div class="flex justify-around w-[40%] mx-auto my-8">
+                    <button class="text-white" @click="mintLess">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                    <input class="bg-opacity-100 bg-black text-white text-center font-black text-3xl"
+                        :value="nft().amountToMint" type="number" name="mint-number" id="mint-number">
+                    <button class="text-white" @click="mintMore">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="text-center font-black text-white text-3xl">
+                    Price: <span x-text="price" class="text-white"></span> ETH
+                </div>
                 <div class="flex justify-center">
-                    <button data-toggleModal class="btn">Back to Reality</button>
+                    <button class="btn">Mint</button>
                 </div>
             </div>
         </div>
