@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="dist/favicon.ico" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>Valorize NFT</title>
-    <link href="dist/output_v3.css" rel="stylesheet">
+    <link href="dist/output.css" rel="stylesheet">
     <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <script src="/src/modal-logic.js"></script>
 </head>
 
 <body class="">
@@ -79,7 +81,48 @@
             </div>
         </div>
     </section>
+    <div class="fixed top-0 left-0 z-20 hidden" id="minting-modal" x-data="mintModal">
+        <div class="grid grid-cols-10 bg-black bg-opacity-50 w-screen h-screen">
+            <div class="bg-black col-span-8 col-start-2">
+                <h1 class="text-white font-black text-4xl py-4 text-center">
+                    Mint a <span  x-text="nft().title"></span> NFT
+                </h1>
+                <button class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>                                         
+                </button>
+                <div class="flex justify-around">
+                    <button @click="previous"
+                        class="text-white w-[30%] transition-colors duration-500 hover:bg-slate-800 bg-opacity-50 flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div class="w-[40%] mx-auto p-2 border-4 border-white shadow shadow-white object-contain">
+                        <div class="border-2 p-2 border-white">
+                            <img class="border-2 border-white" :src="nft().imageSrc" alt="" srcset="">
+                        </div>
+                    </div>
+                    <button @click="next"
+                        class="text-white w-[30%] transition-colors duration-500 hover:bg-slate-800 bg-opacity-50 flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex justify-center">
+                    <button data-toggleModal class="btn">Back to Reality</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="bg-green-50 pt-56 relative z-10">
+        <div class="flex justify-center">
+            <button class="btn" data-toggleModal>Mint Now!</button>
+        </div>
         <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8 gap-8">
             <div class="col-span-1 2xl:col-start-2">
                 <h2 class="text-black font-black text-3xl text-center py-4">
@@ -218,7 +261,31 @@
     (() => {
         setupAnimationsOnScroll()
         setScrollToTop()
+        triggerMintModal()
     })()
+    function triggerMintModal() {
+        document.querySelectorAll("[data-toggleModal]").forEach(el => {
+            console.log(el)
+            const modal = document.querySelector("#minting-modal")
+            const body = document.body;
+            el.addEventListener('click', (e) => {
+                if (modal.classList.contains("hidden")) {
+                    const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+                    body.style.height = '100vh';
+                    body.style.overflowY = 'hidden';
+                } else {
+                    body.style.height = '';
+                    body.style.overflowY = 'scroll';
+                }
+                modal.classList.toggle("hidden")
+            })
+        })
+    }
+    class MintingModal extends HTMLElement {
+        constructor() {
+            super();
+        }
+    }
     function setScrollToTop() {
         document.querySelectorAll("[data-scrollToTop]").forEach(el => {
             el.addEventListener('click', () => {
