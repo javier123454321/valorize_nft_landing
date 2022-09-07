@@ -1,11 +1,10 @@
-"use strict";
-
+const ethers = require("ethers")
 document.addEventListener('alpine:init', () => {
     Alpine.data('mintModal', () => ({
         nfts: [
             {
                 title: 'Mycelia',
-                imageSrc: '/dist/img/product-mycelia.png',
+                imageSrc: '/img/product-mycelia.png',
                 amountToMint: 1,
                 price: 0.5,
                 available: true,
@@ -13,7 +12,7 @@ document.addEventListener('alpine:init', () => {
             },
             {
                 title: 'Silver',
-                imageSrc: '/dist/img/product-silver.png',
+                imageSrc: '/img/product-silver.png',
                 amountToMint: 1,
                 price: 0.1,
                 available: true,
@@ -21,7 +20,7 @@ document.addEventListener('alpine:init', () => {
             },
             {
                 title: 'Diamond',
-                imageSrc: '/dist/img/product-diamond.png',
+                imageSrc: '/img/product-diamond.png',
                 amountToMint: 0,
                 price: 0.3,
                 available: false,
@@ -48,6 +47,9 @@ document.addEventListener('alpine:init', () => {
         },
         price() {
             return (this.nfts[this.index].price * this.nfts[this.index].amountToMint).toPrecision(2)
+        },
+        mint() {
+            console.log(ethers.providers.getDefaultProvider())
         }
     }))
 })
