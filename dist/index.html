@@ -150,10 +150,12 @@
                 <div class="text-center font-black text-white text-3xl">
                     Price: <span x-text="price" class="text-white"></span> ETH
                 </div>
-                <div class="flex justify-center">
+                <div class="flex flex-col items-center justify-center" x-show="!minting" x-transition>
                     <button @click="mint" class="btn">Mint</button>
-                    <button @click="status.next({success: false})" x-text="status.currentStatus" class="text-white"></button>
-                    <button @click="status.next()" x-text="status.currentStatus" class="text-white"></button>
+                    <p x-html="mintingErrorMsg" class="text-white"></p>
+                </div>
+                <div  class="flex justify-center text-white" x-show="minting" x-transition>
+                    <p x-html="mintingStatus"></p>
                 </div>
             </div>
         </div>
