@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const BASE_URI = "";
 for (let i = 1; i <= 2010; i++) {
-    let rarity;
+    let rarity, title;
     if (i <= 10) {
         rarity = {
             type: "string",
@@ -17,6 +17,7 @@ for (let i = 1; i <= 2010; i++) {
                 "Token launch on the Valorize platform if applicable"
             ]
         }
+        title = `ValorizeDAO Mycelia Product NFT`
     } else if (i <= 1010) {
         rarity = {
             type: "string",
@@ -29,6 +30,7 @@ for (let i = 1; i <= 2010; i++) {
                 "Priority Customer Support",
             ]
         }
+        title = `ValorizeDAO Diamond Product NFT`
     } else {
         rarity = {
             type: "string",
@@ -39,8 +41,10 @@ for (let i = 1; i <= 2010; i++) {
                 "Access to Valorize Admin Dashboard for a 1 year minimum",
             ]
         }
+        title = `ValorizeDAO Silver Product NFT`
     }
     for (let k = 0; k < 3; k++) {
+        const status = ["not-ready", "ready", "redeemed"][k]
         const product_status = {
             value: ["Not Ready", "Ready", "Redeemed"][k],
             description: [
@@ -49,8 +53,6 @@ for (let i = 1; i <= 2010; i++) {
                 "Token is now redeemed, welcome to the future"
             ][k]
         }
-        const status = ["not-ready", "ready", "redeemed"][k]
-        const title = `ValorizeDAO ${["Mycelia", "Diamond", "Silver"][k]} Product NFT`
         let data = {
             title,
             animation_url: `${BASE_URI}/${i}/${status}.mp4`,
