@@ -8,7 +8,7 @@
     <link rel="icon" href="/favicon.ico" />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>Valorize NFT</title>
-    <link href="./output_v3.css" rel="stylesheet">
+    <link href="./output.css" rel="stylesheet">
     <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
 </head>
 
@@ -82,7 +82,14 @@
     </section>
     <div class="fixed top-0 left-0 z-20 hidden" id="minting-modal" x-data="mintModal">
         <div class="grid grid-cols-10 bg-black bg-opacity-50 w-screen h-screen">
-            <div class="bg-black col-span-8 col-start-2">
+
+            <button data-toggleModal class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="bg-black col-span-8 col-start-2 text-white" x-show="!minted">
                 <h1 class="text-white font-black text-4xl py-4 text-center flex items-center justify-center">
                     Mint a &nbsp;<span x-text="nft().title"></span>&nbsp; NFT
                     <div @mouseover="() => showDescription = true" @mouseleave="() => showDescription = false">
@@ -100,12 +107,6 @@
                         </div>
                     </div>
                 </h1>
-                <button data-toggleModal class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
                 <div class="flex justify-around">
                     <button @click="previousNft"
                         class="text-white w-[30%] transition-colors duration-500 hover:bg-slate-800 bg-opacity-50 flex justify-center items-center">
@@ -114,9 +115,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                         </svg>
                     </button>
-                    <div class="w-[40%] mx-auto p-2 border-4 border-white shadow shadow-white object-contain">
+                    <div
+                        class="max-w-[40%] min-w-[45vh] mx-auto p-2 border-4 border-white shadow shadow-white object-contain">
                         <div class="border-2 p-2 border-white">
-                            <img class="border-2 border-white" :src="nft().imageSrc" alt="" srcset="">
+                            <img class="border-2 max-h-[45vh] border-white" :src="nft().imageSrc" alt="" srcset="">
                         </div>
                     </div>
                     <button @click="nextNft"
@@ -150,89 +152,102 @@
                 <div class="text-center font-black text-white text-3xl">
                     Price: <span x-text="price" class="text-white"></span> ETH
                 </div>
-                <div class="flex flex-col items-center justify-center" x-show="!minting" x-transition>
+                <div class="flex flex-col items-center justify-center" x-transition>
                     <button @click="mint" class="btn">Mint</button>
                     <p x-html="mintingErrorMsg" class="text-white"></p>
                 </div>
-                <div  class="flex justify-center text-white" x-show="minting" x-transition>
+                <div class="flex justify-center text-white" x-show="minting" x-transition>
                     <p x-html="mintingStatus"></p>
                 </div>
             </div>
+            <div class="bg-black col-span-8 col-start-2" x-show="minted"">
+                <h1 
+                    class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
+                    x-text="tokenInfo.title"></h1>
+                <h2 class="text-white font-black text-2xl text-center flex items-center justify-center">token id : <span x-text="tokenInfo.properties.token_id"></span></h2>
+                <div class="flex justify-center">
+                    <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+                <div></div>
+
+            </div>
         </div>
+    </div>
     </div>
     <section class="bg-green-50 pt-56 relative z-10">
         <div class="flex justify-center">
             <button class="btn" data-toggleModal>Mint Now!</button>
         </div>
         <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8">
-            <div class="col-span-1 py-4">
+            <div class="col-span-1 2xl:col-start-2 py-4">
                 <div class="p-8 rounded-lg shadow bg-white flex flex-col justify-start h-full">
-                <h2 class="text-black font-black text-3xl text-center py-4">
-                    Diamond NFT<br>
-                    .5 ETH
-                </h2>
-                <ul class="">
-                    <li class="pt-4">
-                        Token launch in our platform
-                    </li>
-                    <li class="pt-12">
-                        Access to the Valorize Admin Dashboard for a 2 year minimum
-                    </li>
-                    <li class="pt-4">
-                        Conversation with tokenomics expert to define token <span class="text-orange-900">*</span>
-                    </li>
-                    <li class="pt-4">
-                        Priority Customer Support 
-                    </li>
-                </ul>
-                <div class="pt-4 text-orange-900 flex flex-col justify-end h-full">
-                    * We will guide you through what is possible within our platform, and help you make the right decision on parameters such as minting schedule, distribution, initial allocation, etc.
+                    <h2 class="text-black font-black text-3xl text-center py-4">
+                        Diamond NFT<br>
+                        .5 ETH
+                    </h2>
+                    <ul class="">
+                        <li class="pt-4">
+                            Token launch in our platform
+                        </li>
+                        <li class="pt-12">
+                            Access to the Valorize Admin Dashboard for a 2 year minimum
+                        </li>
+                        <li class="pt-4">
+                            Conversation with tokenomics expert to define token <span class="text-orange-900">*</span>
+                        </li>
+                        <li class="pt-4">
+                            Priority Customer Support
+                        </li>
+                    </ul>
+                    <div class="pt-4 text-orange-900 flex flex-col justify-end h-full">
+                        * We will guide you through what is possible within our platform, and help you make the right
+                        decision on parameters such as minting schedule, distribution, initial allocation, etc.
+                    </div>
                 </div>
             </div>
-            </div>
-            <div class="col-span-1 2xl:col-start-2">
+            <div class="col-span-1">
                 <div class="p-8 rounded-xl drop-shadow-xl bg-white h-full">
-                <h2 class="text-black font-black text-3xl text-center py-4">
-                    Mycelia NFT<br>
-                    1.5 ETH
-                </h2>
-                <ul class="pt-2">
-                    <li class="pt-4">
-                        Token launch in our platform <span class=" text-orange-900">*</span>
-                    </li>
-                    <li class="pt-12">
-                        Access to Valorize Admin Dashboard for a 3 year minimum
-                    </li>
-                    <li class="pt-4">
-                        5 hours of consultation time with tokenomics experts
-                    </li>
-                    <li class="pt-4">
-                        Premium Customer Support for the first 3 months guaranteed.
-                    </li>
-                    <li class="pt-4">
-                        Define project parameters, deliverables, KPIs and next steps
-                    </li>
-                    <li class="pt-4">
-                        Draft of tokenomic distribution portion of technical communication (whitepaper, blog post,
-                        etc...)
-                    </li>
-                    <li class="pt-4 text-orange-900">
-                        * Depending on token scope after our consultation.
-                    </li>
-                </ul>
+                    <h2 class="text-black font-black text-3xl text-center py-4">
+                        Mycelia NFT<br>
+                        1.5 ETH
+                    </h2>
+                    <ul class="pt-2">
+                        <li class="pt-4">
+                            Token launch in our platform <span class=" text-orange-900">*</span>
+                        </li>
+                        <li class="pt-12">
+                            Access to Valorize Admin Dashboard for a 3 year minimum
+                        </li>
+                        <li class="pt-4">
+                            5 hours of consultation time with tokenomics experts
+                        </li>
+                        <li class="pt-4">
+                            Premium Customer Support for the first 3 months guaranteed.
+                        </li>
+                        <li class="pt-4">
+                            Define project parameters, deliverables, KPIs and next steps
+                        </li>
+                        <li class="pt-4">
+                            Draft of tokenomic distribution portion of technical communication (whitepaper, blog post,
+                            etc...)
+                        </li>
+                        <li class="pt-4 text-orange-900">
+                            * Depending on token scope after our consultation.
+                        </li>
+                    </ul>
                 </div>
             </div>
-           <div class="col-span-1 py-4">
+            <div class="col-span-1 py-4">
                 <div class="p-8 rounded-lg shadow bg-white h-full">
-                <h2 class="text-black font-black text-3xl text-center py-4">
-                    Silver NFT<br>
-                    .1 ETH
-                </h2>
-                <ul class="">
-                    <li class="pt-4">Token launch in our platform<br>(Usual Price 0.3 ETH)</li>
-                    <li class="pt-4">Access to the Valorize Admin Dashboard for a 1 year minimum</li>
-                </ul>
-            </div>
+                    <h2 class="text-black font-black text-3xl text-center py-4">
+                        Silver NFT<br>
+                        .1 ETH
+                    </h2>
+                    <ul class="">
+                        <li class="pt-4">Token launch in our platform<br>(Usual Price 0.3 ETH)</li>
+                        <li class="pt-4">Access to the Valorize Admin Dashboard for a 1 year minimum</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="text-center flex justify-center">
@@ -920,5 +935,6 @@
         flex: 1 1 auto;
     }
 </style>
-    <script src="./src/index.js"></script>
+<script src="./src/index.js"></script>
+
 </html>

@@ -17,7 +17,7 @@ document.addEventListener('alpine:init', () => {
                 title: 'Silver',
                 imageSrc: './img/product-silver.png',
                 amountToMint: 1,
-                price: 0.1,
+                price: 0.2,
                 available: true,
                 description: "Token launch in our platform, today (normal price of 0.3 ETH) and 1 year access to our platform.",
             },
@@ -25,7 +25,7 @@ document.addEventListener('alpine:init', () => {
                 title: 'Diamond',
                 imageSrc: './img/product-diamond.png',
                 amountToMint: 0,
-                price: 0.3,
+                price: 0.55,
                 available: false,
                 description: "Conversation with tokenomics expert to define token, access to dashboard for a 2 year minimum and priority customer support.",
             },
@@ -56,8 +56,10 @@ document.addEventListener('alpine:init', () => {
         mintingErrorMsg: "",
         mintingError: false,
         minting: false,
+        minted: false,
         mintingStatus: "",
         async mint() {
+            this.mintingError = false
             this.minting = true
             this.mintingStatus = "Requesting your wallet to connect"
             const hasProvider = await sendRequestMethodToEtherObject()
@@ -84,12 +86,17 @@ document.addEventListener('alpine:init', () => {
                 this.mintingStatus = "Requesting transaction"
                 console.log("sending", priceInEth.toString())
                 this.mintingStatus = "Waiting for transaction to confirm"
-                const deployTx = await productNft.rarestBatchMint(this.nfts[this.index].amountToMint, { value: priceInEth })
-                this.mintingStatus = "Transaction submitted, might take a few moments"
+                const mintingFunction = ["rarestBatchMint", "rareBatchMint", "rarerBatchMint"][this.index]
+                const deployTx = await productNft[mintingFunction](this.nfts[this.index].amountToMint, { value: priceInEth })
+                this.mintingStatus = `Transaction submitted, minting now!
+<div class="p-4 flex justify-center">
+    <img src="/img/puff.svg">
+</div>`
                 receipt = await deployTx.wait()
+                setTimeout(() => this.minted = true, 3000)
                 this.mintingStatus = `Minted!
                 <a 
-                    href='https://${networkInfo.chainId == '3'? 'ropsten.':''}etherscan.io/tx/${receipt.transactionHash}'
+                    href='https://${networkInfo.chainId == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}'
                     target="_blank"
                     class="border-b pb-1">
                     See your transaction here!
@@ -97,7 +104,10 @@ document.addEventListener('alpine:init', () => {
                 console.log({ receipt })
             } catch (err) {
                 if (err.toString().search(/Batch sold out/) !== -1) {
-                    this.setError("Batch is sold out!")
+                    this.setError("Batch is sold out! Check soon and follow our twitter to find out about next batches")
+                    return
+                } else if (err.toString().search(/rarity is sold out/) !== -1) {
+                    this.setError("We are sold out of " + this.nft().title + " NFTS!")
                     return
                 }
                 this.setError("Error minting, Sorry! Please contact us to figure out what happened")
@@ -105,25 +115,31 @@ document.addEventListener('alpine:init', () => {
             const info = await productNft.queryFilter(productNft.filters.MintedTokenInfo(), receipt.blockHash)
             const event = info.find(e => e.transactionHash === receipt.transactionHash)
             if (event) {
-                console.log(event.args)
-                console.log(event.args.tokenId.toString())
-                this.minted = true
-                
-            } else {
+                const tokenId = event.args.tokenId.toString()
+                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                if (tokenInfo) {
+                    tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
+                    this.tokenInfo = tokenInfo
+                    return
+                } 
+            }
                 this.setError(`
                     Somehow we got an error getting your token info. <br>
-                    <a class="border-b pb-1" href='https://${networkInfo == '3'? 'ropsten.':''}etherscan.io/tx/${receipt.transactionHash}'>
+                    <a class="border-b pb-1" href='https://${networkInfo == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}'>
                         You can see it here: 
                     </a>
                 `)
-            }
         },
         setError(msg) {
             this.minting = false
             this.mintingError = true
             this.mintingErrorMsg = msg
+        },
+        tokenInfo: {
+            properties: {
+                token_id: 0
+            }
         }
-
     })
     )
 })
@@ -134,6 +150,35 @@ async function sendRequestMethodToEtherObject() {
     } catch (err) {
         return false
     }
+}
+
+/**
+ * Description
+ * @param {string} rarity
+ * @returns {string} url of vimeo player
+ */
+function getUrlPublic(rarity) {
+    const urls = {
+        mycelia: "https://player.vimeo.com/video/751511053?h=284ef13860&autoplay=1&loop=1&autopause=0",
+        silver: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&autoplay=1&loop=1&autopause=0",
+        diamond: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&autoplay=1&loop=1&autopause=0"
+    }
+    return urls[rarity]
+}
+
+/**
+ * Needs the instantiated contract object and returns the metadata
+ * @param {ethers.Contract} nftContractInstance
+ * @param {string} tokenId
+ * @returns {{title: string, animation_url:string, properties:object}}}
+ */
+async function getTokenInfo(nftContractInstance, tokenId) {
+    const url = await nftContractInstance.uri(tokenId)
+    const req = await fetch(url)
+    console.log({url})
+    if (!req.ok) return 
+    console.log({req})
+    return req.json()
 }
 
 async function getNetworkInfo(provider) {
