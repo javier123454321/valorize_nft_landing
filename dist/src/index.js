@@ -33822,7 +33822,7 @@ function setupAnimationsOnScroll() {
 },{}],172:[function(require,module,exports){
 exports.contractAddress = {
   "1" : "",
-  "3" : "0x6AecC2EDef2d827faBcf946942Ea6b829B2FDA85"
+  "3" : "0x0cbE65F21B0a4775f90A5BdC2d90A0a1EB9A9Cdc"
 }
 exports.abi=[
   {
@@ -34828,7 +34828,7 @@ document.addEventListener('alpine:init', () => {
                 title: 'Silver',
                 imageSrc: './img/product-silver.png',
                 amountToMint: 1,
-                price: 0.2,
+                price: 0.1,
                 available: true,
                 description: "Token launch in our platform, today (normal price of 0.3 ETH) and 1 year access to our platform.",
             },
@@ -34836,7 +34836,7 @@ document.addEventListener('alpine:init', () => {
                 title: 'Diamond',
                 imageSrc: './img/product-diamond.png',
                 amountToMint: 0,
-                price: 0.55,
+                price: 0.5,
                 available: false,
                 description: "Conversation with tokenomics expert to define token, access to dashboard for a 2 year minimum and priority customer support.",
             },
@@ -34844,7 +34844,8 @@ document.addEventListener('alpine:init', () => {
         ],
         showDescription: false,
         index: 0,
-        deplyTx: {},
+        deployTx: {},
+        txLink: '',
         nextNft() {
             this.index = ++this.index % this.nfts.length;
         },
@@ -34871,7 +34872,7 @@ document.addEventListener('alpine:init', () => {
         mintingStatus: "",
         async mint() {
             this.mintingError = false
-            this.minting = true
+            this.mintingErrorMsg = ''
             this.mintingStatus = "Requesting your wallet to connect"
             const hasProvider = await sendRequestMethodToEtherObject()
             if (!hasProvider) {
@@ -34899,15 +34900,18 @@ document.addEventListener('alpine:init', () => {
                 this.mintingStatus = "Waiting for transaction to confirm"
                 const mintingFunction = ["rarestBatchMint", "rareBatchMint", "rarerBatchMint"][this.index]
                 const deployTx = await productNft[mintingFunction](this.nfts[this.index].amountToMint, { value: priceInEth })
-                this.mintingStatus = `Transaction submitted, minting now!
+                this.minting = true
+                this.mintingStatus = `<div class="pt-8 pb-2">Transaction submitted, minting now!</div>
 <div class="p-4 flex justify-center">
     <img src="/img/puff.svg">
 </div>`
                 receipt = await deployTx.wait()
+                this.deployTx = receipt
+                this.txLink = `https://${networkInfo.chainId == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}`
                 setTimeout(() => this.minted = true, 3000)
                 this.mintingStatus = `Minted!
                 <a 
-                    href='https://${networkInfo.chainId == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}'
+                    href='${this.txLink}'
                     target="_blank"
                     class="border-b pb-1">
                     See your transaction here!
@@ -34936,7 +34940,7 @@ document.addEventListener('alpine:init', () => {
             }
                 this.setError(`
                     Somehow we got an error getting your token info. <br>
-                    <a class="border-b pb-1" href='https://${networkInfo == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}'>
+                    <a class="border-b pb-1" href='${this.txLink}}'>
                         You can see it here: 
                     </a>
                 `)

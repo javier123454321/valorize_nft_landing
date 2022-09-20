@@ -1,6 +1,6 @@
 exports.contractAddress = {
   "1" : "",
-  "3" : "0x6AecC2EDef2d827faBcf946942Ea6b829B2FDA85"
+  "3" : "0x0cbE65F21B0a4775f90A5BdC2d90A0a1EB9A9Cdc"
 }
 exports.abi=[
   {
