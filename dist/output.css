@@ -789,6 +789,10 @@ video {
   width: 14rem;
 }
 
+.w-\[640px\] {
+  width: 640px;
+}
+
 .min-w-\[45vh\] {
   min-width: 45vh;
 }
@@ -1092,6 +1096,10 @@ video {
 
 .pb-1 {
   padding-bottom: 0.25rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 
 .text-center {

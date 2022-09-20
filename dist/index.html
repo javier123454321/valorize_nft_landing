@@ -164,12 +164,20 @@
                 <h1 
                     class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
                     x-text="tokenInfo.title"></h1>
-                <h2 class="text-white font-black text-2xl text-center flex items-center justify-center">token id : <span x-text="tokenInfo.properties.token_id"></span></h2>
+                <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id : <span x-text="tokenInfo.properties.token_id"></span></h2>
                 <div class="flex justify-center">
                     <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
                 </div>
-                <div></div>
-
+                <div class="w-[640px] mx-auto text-white">
+                    <p>
+                        <span class="font-bold text-lg">Token Rarity:</span><span x-text="tokenInfo.properties.rarity.value"></span>
+                    </p>
+                    <p class="font-bold text-lg">Benefits: 
+                    </p>
+                    <template x-for="benefit in tokenInfo.properties.rarity.benefits">
+                        <p x-text="benefit"></p>
+                    </template>
+                </div>
             </div>
         </div>
     </div>

@@ -34970,9 +34970,9 @@ async function sendRequestMethodToEtherObject() {
  */
 function getUrlPublic(rarity) {
     const urls = {
-        mycelia: "https://player.vimeo.com/video/751511053?h=284ef13860&autoplay=1&loop=1&autopause=0",
-        silver: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&autoplay=1&loop=1&autopause=0",
-        diamond: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&autoplay=1&loop=1&autopause=0"
+        mycelia: "https://player.vimeo.com/video/751511053?h=284ef138605&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&quality=720p",
+        silver: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&quality=720p",
+        diamond: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&quality=720p"
     }
     return urls[rarity]
 }
