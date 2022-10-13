@@ -157,7 +157,6 @@ async function sendRequestMethodToEtherObject() {
 }
 
 /**
- * Description
  * @param {string} rarity
  * @returns {string} url of vimeo player
  */
@@ -174,7 +173,7 @@ function getUrlPublic(rarity) {
  * Needs the instantiated contract object and returns the metadata
  * @param {ethers.Contract} nftContractInstance
  * @param {string} tokenId
- * @returns {{title: string, animation_url:string, properties:object}}}
+ * @returns {{title: string, animation_url:string, properties:object}}
  */
 async function getTokenInfo(nftContractInstance, tokenId) {
     const url = await nftContractInstance.uri(tokenId)
