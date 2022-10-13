@@ -5,3 +5,4 @@
 .btn {
     @apply relative z-20 py-4 text-center px-8 mt-4 bg-blue-900 text-white font-black rounded cursor-pointer
 }
+

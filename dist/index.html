@@ -19,8 +19,14 @@
     <section id="hero">
         <div class="flex flex-col items-center z-20">
             <div class="absolute z-10 w-screen overflow-hidden object-right flex justify-center">
-                <img src="/img/hero.png" class="w-[250vw] md:w-[200vw] lg:w-screen max-w-none opacity-0"
-                    intersect-class="fade slow" alt="" srcset="">
+                <div class="flex w-screen justify-around py-12 bg-purple-100" id="membership-images">
+                    <img src="/img/hero1.png" class="opacity-0 object-scale-down"
+                        intersect-class="opacity-100 rotateZ left" alt="" srcset="">
+                    <img src="/img/hero2.png" class="opacity-0 object-scale-down"
+                        intersect-class="opacity-100 slow rotateZ middle" alt="" srcset="">
+                    <img src="/img/hero3.png" class="opacity-0 object-scale-down"
+                        intersect-class="opacity-100 rotateZ right" alt="" srcset="">
+                </div>
             </div>
             <div id="hero-image-filter" class="z-20 w-screen">
                 <h1 class="z-10 text-black font-black max-w-2xl mx-auto text-center mt-32 text-3xl xl:text-5xl ">2 NFTs
@@ -368,6 +374,16 @@
     .intersection-animated {
         transition-duration: 1s;
         animation-duration: 1s;
+    }
+
+    .rotateZ.left {
+        transform: rotate3d(5, 8, 3, -30deg)
+    }
+    .rotateZ.middle {
+        transform: rotate3d(5, 1, 0, 20deg)
+    }
+    .rotateZ.right {
+        transform: rotate3d(5, -8, 3, 30deg)
     }
 
     @keyframes slideL {
