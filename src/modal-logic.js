@@ -2,8 +2,8 @@ const ethers = require("ethers")
 const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
 
-document.addEventListener('alpine:init', () => {
-    Alpine.data('mintModal', () => ({
+exports.mintModalProductNft = function mintModalProductNFT() {
+    return {
         nfts: [
             {
                 title: 'Mycelia',
@@ -144,9 +144,8 @@ document.addEventListener('alpine:init', () => {
                 token_id: 0
             }
         }
-    })
-    )
-})
+    }
+}
 async function sendRequestMethodToEtherObject() {
     try {
         await ethereum.request({ method: "eth_requestAccounts" })

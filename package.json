@@ -1,5 +1,5 @@
 {
-  "scrits": {
+  "scripts": {
     "watch": "watchify src/main.js -o dist/src/index.js",
     "css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "run": "live-server dist"
@@ -9,6 +9,7 @@
     "tailwindcss": "^3.1.2"
   },
   "dependencies": {
+    "alpinejs": "^3.10.4",
     "ethers": "^5.7.0"
   }
 }

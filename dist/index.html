@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.ico" />
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>Valorize NFT</title>
     <link href="./output.css" rel="stylesheet">
     <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <script defer src="./src/index.js"></script>
 </head>
 
 <body class="">
     <nav class="w-screen flex justify-center bg-white py-4">
         <a href="https://valorize.app"><img class="w-48" src="/img/Horizontal.png" alt="Valorize"></a>
     </nav>
-    <section id="hero">
+    <section id="hero" class="bg-purple-100">
         <div class="flex flex-col items-center z-20">
             <div class="absolute z-10 w-screen overflow-hidden object-right flex justify-center">
-                <div class="flex w-screen justify-around py-12 bg-purple-100" id="membership-images">
+                <div class="flex w-screen justify-around py-12" id="membership-images">
                     <img src="/img/hero1.png" class="opacity-0 object-scale-down"
                         intersect-class="opacity-100 rotateZ left" alt="" srcset="">
                     <img src="/img/hero2.png" class="opacity-0 object-scale-down"
@@ -29,9 +29,8 @@
                 </div>
             </div>
             <div id="hero-image-filter" class="z-20 w-screen">
-                <h1 class="z-10 text-black font-black max-w-2xl mx-auto text-center mt-32 text-3xl xl:text-5xl ">2 NFTs
-                    For Those That
-                    Want to be a Part of the Future of Human Collaboration</h1>
+                <h1 class="z-10 text-black font-black max-w-2xl mx-auto text-center mt-32 text-3xl xl:text-5xl ">
+                    The NFT Project for Those That Want to be a Part of the Future of Human Collaboration</h1>
                 <h2 class="z-10 text-black font-black max-w-2xl mx-auto text-center mt-8 text-l xl:text-2xl">An
                     opportunity to be
                     optimistic about the future</h2>
@@ -70,7 +69,7 @@
                     </a>
                 </div>
             </div>
-            <div id="hero-image2-filter" class="z-20 w-screen">
+            <!-- <div id="hero-image2-filter" class="z-20 w-screen">
                 <h3
                     class="z-30 text-black font-black text-3xl text-center max-w-lg mx-auto mt-12 pb-48 sm:pb-56 lg:pb-72">
                     The Product Collection Coming September 20
@@ -83,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     <div class="fixed top-0 left-0 z-20 hidden" id="minting-modal" x-data="mintModal">
@@ -158,8 +157,9 @@
                 <div class="text-center font-black text-white text-3xl" x-show="!minting">
                     Price: <span x-text="price" class="text-white"></span> ETH
                 </div>
-                <div class="flex flex-col items-center justify-center" x-transition  x-show="!minting">
-                    <button @click="mint" class="btn disabled:bg-slate-600 disabled:cursor-not-allowed" :disabled="!nft().available">Mint</button>
+                <div class="flex flex-col items-center justify-center" x-transition x-show="!minting">
+                    <button @click="mint" class="btn disabled:bg-slate-600 disabled:cursor-not-allowed"
+                        :disabled="!nft().available">Mint</button>
                     <p x-html="mintingErrorMsg" class="text-white"></p>
                 </div>
                 <div class="flex justify-center text-white" x-show="minting" x-transition>
@@ -169,28 +169,79 @@
             <div class="bg-black col-span-8 col-start-2" x-show="minted"">
                 <h1 
                     class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
-                    x-text="tokenInfo.title"></h1>
-                <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id : <span x-text="tokenInfo.properties.token_id"></span></h2>
+                x-text="tokenInfo.title">
+                </h1>
+                <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id :
+                    <span x-text="tokenInfo.properties.token_id"></span></h2>
                 <div class="flex justify-center">
-                    <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"
+                        allow="autoplay; fullscreen" allowfullscreen></iframe>
                 </div>
                 <div class="w-[640px] mx-auto text-white">
                     <p>
-                        <span class="font-bold text-lg">Token Rarity:</span><span x-text="tokenInfo.properties.rarity.value"></span>
+                        <span class="font-bold text-lg">Token Rarity:</span><span
+                            x-text="tokenInfo.properties.rarity.value"></span>
                     </p>
-                    <p class="font-bold text-lg">Benefits: 
+                    <p class="font-bold text-lg">Benefits:
                     </p>
                     <template x-for="benefit in tokenInfo.properties.rarity.benefits">
                         <p x-text="benefit"></p>
                     </template>
                     <a :href="txLink" class="border-b pb-1">See Your Deployment Transaction</a>
-                    <p>To cash out this token, reach out to us in <a href="https://valorize.app" class="border-b pb-1">Our Website</a></p>
+                    <p>To cash out this token, reach out to us in <a href="https://valorize.app"
+                            class="border-b pb-1">Our Website</a></p>
                 </div>
             </div>
         </div>
     </div>
     </div>
-    <section class="bg-green-50 pt-56 relative z-10">
+    <section id="3-animals-explanation" class="relative z-30 px-8 bg-green-100 py-8" x-data="artistsData">
+        <h2 class="font-black text-4xl">The Art</h2>
+        <h3 class="font-black text-xl">3 animals by 12 different artists</h3>
+        <div class="-mx-8 px-8 py-4">
+            <h3 class="font-black text-3xl">Octopus</h3>
+            <div>
+                <h4 x-text="octopus().name" class="font-black text-2xl"></h4>
+                <div class>
+                    <img :src="octopus().artSrc" alt="" srcset="" class="h-56 object-contain">
+                </div>
+            </div>
+            <button @click="next(0)">>>>>></button>
+        </div>
+        <div class="bg-purple-300 -mx-8 px-8 text-right py-4">
+            <h3 class="font-black text-3xl">Bee</h3>
+            <div>
+                <h4 x-text="bee().name" class="font-black text-2xl"></h4>
+                <div class="flex justify-end">
+                    <img :src="bee().artSrc" alt="" srcset="" class="h-56 object-contain">
+                </div>
+            </div>
+            <button @click="next(1)">>>>>></button>
+        </div>
+        <div class="-mx-8 px-8 py-4">
+            <h3 class="font-black text-3xl">Ant</h3>
+            <div>
+                <h4 x-text="ant().name" class="font-black text-2xl"></h4>
+                <div class>
+                    <img :src="ant().artSrc" alt="" srcset="" class="h-56 object-contain">
+                </div>
+            </div>
+            <button @click="next(2)">>>>>></button>
+        </div>
+    </section>
+    <section class="bg-green-50 relative z-10">
+        <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8 gap-8">
+            <div class="bg-white p-10 rounded-lg my-10 col-span-1 lg:col-span-3 2xl:col-start-2 text-center">
+                <h3 class="font-black text-3xl text-center">
+                    NFT Owners are elegible for airdrop of $VALOR governance Token when it launches
+                </h3>
+                <a href="https://valorize.app" class="flex justify-center">
+                    <div class="px-8 py-4 bg-gray-300 border-black border-2 font-bold mt-8 w-56">
+                        About Valorize
+                    </div>
+                </a>
+            </div>
+        </div>
         <div class="flex justify-center">
             <button class="btn" data-toggleModal>Mint Now!</button>
         </div>
@@ -271,18 +322,6 @@
                 <a href="#signup" data-scrollToTop
                     class="relative z-20 py-4 text-center px-8 mt-4 bg-blue-900 text-white font-black rounded cursor-pointer">Get
                     Email Updates</a>
-            </div>
-        </div>
-        <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8 gap-8">
-            <div class="bg-white p-10 rounded-lg my-10 col-span-1 lg:col-span-3 2xl:col-start-2 text-center">
-                <h3 class="font-black text-3xl text-center">
-                    NFT Owners are elegible for airdrop of $VALOR governance Token when it launches
-                </h3>
-                <a href="https://valorize.app" class="flex justify-center">
-                    <div class="px-8 py-4 bg-gray-300 border-black border-2 font-bold mt-8 w-56">
-                        About Valorize
-                    </div>
-                </a>
             </div>
         </div>
         <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8 gap-8">
@@ -379,9 +418,11 @@
     .rotateZ.left {
         transform: rotate3d(5, 8, 3, -30deg)
     }
+
     .rotateZ.middle {
         transform: rotate3d(5, 1, 0, 20deg)
     }
+
     .rotateZ.right {
         transform: rotate3d(5, -8, 3, 30deg)
     }
@@ -961,6 +1002,5 @@
         flex: 1 1 auto;
     }
 </style>
-<script src="./src/index.js"></script>
 
 </html>
