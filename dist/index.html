@@ -195,38 +195,47 @@
         </div>
     </div>
     </div>
-    <section id="3-animals-explanation" class="relative z-30 px-8 bg-green-100 py-8" x-data="artistsData">
+    <section id="3-animals-explanation" class="relative z-30 px-8 py-8" x-data="artistsData">
         <h2 class="font-black text-4xl">The Art</h2>
         <h3 class="font-black text-xl">3 animals by 12 different artists</h3>
-        <div class="-mx-8 px-8 py-4">
-            <h3 class="font-black text-3xl">Octopus</h3>
-            <div>
-                <h4 x-text="octopus().name" class="font-black text-2xl"></h4>
-                <div class>
-                    <img :src="octopus().artSrc" alt="" srcset="" class="h-56 object-contain">
-                </div>
-            </div>
-            <button @click="next(0)">>>>>></button>
+        <div class="flex justify-around font-black text-2xl max-w-screen-sm mx-auto">
+            <div>The Octopus</div>
+            <div>The Bee</div>
+            <div>The Ant</div>
         </div>
-        <div class="bg-purple-300 -mx-8 px-8 text-right py-4">
-            <h3 class="font-black text-3xl">Bee</h3>
+        <div class="pt-4 clippedArt" id="explanation">
             <div>
-                <h4 x-text="bee().name" class="font-black text-2xl"></h4>
-                <div class="flex justify-end">
-                    <img :src="bee().artSrc" alt="" srcset="" class="h-56 object-contain">
+                <div class="flex justify-center">
+                    <div class="imgContainer h-96 w-96 relative" tabindex="0">
+                        <div class="info bg-purple-100 bg-opacity-30">
+                            <h2 class="font-black text-3xl">Artist: <span  x-text="octopus().name"></span></h2>
+                        </div>
+                        <img :src="octopus().artSrc" alt="" srcset="" class="object-contain">
+                    </div>
+                    <div class="imgContainer h-96 w-96 -mx-36 relative" tabindex="0">
+                        <div class="info bg-purple-100 bg-opacity-30">
+                            <h2 class="font-black text-3xl ">Artist: <span  x-text="bee().name"></span></h2>
+                        </div>
+                        <img :src="bee().artSrc" alt="" srcset="" class="object-contain object-center">
+                    </div>
+                    <div class="imgContainer h-96 w-96 relative" tabindex="0">
+                        <div class="info bg-purple-100 bg-opacity-30">
+                            <h2 class="font-black text-3xl">Artist: <span  x-text="ant().name"></span></h2>
+                        </div>
+                        <img :src="ant().artSrc" alt="" srcset="" class="object-contain">
+                    </div>
                 </div>
             </div>
-            <button @click="next(1)">>>>>></button>
-        </div>
-        <div class="-mx-8 px-8 py-4">
-            <h3 class="font-black text-3xl">Ant</h3>
-            <div>
-                <h4 x-text="ant().name" class="font-black text-2xl"></h4>
-                <div class>
-                    <img :src="ant().artSrc" alt="" srcset="" class="h-56 object-contain">
+            <div class="max-w-screen-sm mx-auto">
+                Our NFTs are made by 12 different artists from around the globe. Each artist made 5 different versions of the art, the detail and difficulty of which increased the higher the rarity. This is not a generative project, but a chance to own uniquely detailed hand crafted digital art. Click to see all the different artists' work.
+                <div class="text-center">
+                    <button class="bg-slate-400 px-6 py-4 rounded-lg text-white" @click="nextAll">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <button @click="next(2)">>>>>></button>
         </div>
     </section>
     <section class="bg-green-50 relative z-10">

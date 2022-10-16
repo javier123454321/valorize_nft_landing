@@ -6,3 +6,46 @@
     @apply relative z-20 py-4 text-center px-8 mt-4 bg-blue-900 text-white font-black rounded cursor-pointer
 }
 
+.clippedArt .imgContainer {
+    clip-path: polygon(30% 10%, 90% 10%, 70% 90%, 10% 90%);
+    transition-duration: 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.clippedArt .imgContainer div.info {
+    z-index: 21;
+    transition-duration: 1s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.clippedArt .imgContainer:hover div.info, .clippedArt .imgContainer:focus div.info {
+    opacity: 1;
+}
+.clippedArt .imgContainer img {
+    transition-duration: 1s;
+    max-height: 100%;
+    max-width: 100%;
+    transform: scale(1.5);
+}
+.clippedArt .imgContainer:hover, .clippedArt .imgContainer:focus {
+    z-index: 20;
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.clippedArt .imgContainer:hover img, .clippedArt .imgContainer:focus img {
+    transform: scale(1);
+}
+
+
+@keyframes flashBg {
+    0% {
+    }
+    100% {
+    }
+}
+

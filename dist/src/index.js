@@ -37416,6 +37416,11 @@ exports.artistsData = () => {
         indices: [0, 0, 0],
         next(index) {
             return () => { this.indices[index] = (this.indices[index] + 1) % 4 }
+        },
+        nextAll() {
+            this.indices[0] += 1
+            this.indices[1] += 1
+            this.indices[2] += 1
         }
     }
 }
