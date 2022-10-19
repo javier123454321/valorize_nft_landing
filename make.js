@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const BASE_URI = "";
 for (let i = 1; i <= 2010; i++) {
-    let rarity, title, animation_url 
+    let rarity, title;
     if (i <= 10) {
         rarity = {
             type: "string",
@@ -18,7 +18,6 @@ for (let i = 1; i <= 2010; i++) {
             ]
         }
         title = `ValorizeDAO Mycelia Product NFT`
-        animation_url = "https://nft.valorize.app/metadata/video/mycelia/"
     } else if (i <= 1010) {
         rarity = {
             type: "string",
@@ -32,7 +31,6 @@ for (let i = 1; i <= 2010; i++) {
             ]
         }
         title = `ValorizeDAO Diamond Product NFT`
-        animation_url = "https://nft.valorize.app/metadata/video/diamond/"
     } else {
         rarity = {
             type: "string",
@@ -44,7 +42,6 @@ for (let i = 1; i <= 2010; i++) {
             ]
         }
         title = `ValorizeDAO Silver Product NFT`
-        animation_url = "https://nft.valorize.app/metadata/video/silver/"
     }
     for (let k = 0; k < 3; k++) {
         const status = ["not-ready", "ready", "redeemed"][k]
@@ -58,7 +55,7 @@ for (let i = 1; i <= 2010; i++) {
         }
         let data = {
             title,
-            animation_url: animation_url + status + '.mp4',
+            animation_url: `${BASE_URI}/${i}/${status}.mp4`,
             properties: {
                 token_id: i,
                 rarity,
