@@ -17,7 +17,7 @@
         <a href="https://valorize.app"><img class="w-48" src="/img/Horizontal.png" alt="Valorize"></a>
     </nav>
     <section id="hero" class="bg-purple-100">
-        <div class="flex flex-col items-center z-20">
+        <div class="flex flex-col items-center z-10">
             <div class="absolute z-10 w-screen overflow-hidden object-right flex justify-center">
                 <div class="flex w-screen justify-around py-12" id="membership-images">
                     <img src="/img/hero1.png" class="opacity-0 object-scale-down"
@@ -172,7 +172,8 @@
                 x-text="tokenInfo.title">
                 </h1>
                 <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id :
-                    <span x-text="tokenInfo.properties.token_id"></span></h2>
+                    <span x-text="tokenInfo.properties.token_id"></span>
+                </h2>
                 <div class="flex justify-center">
                     <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"
                         allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -195,9 +196,12 @@
         </div>
     </div>
     </div>
-    <section id="3-animals-explanation" class="relative z-30 px-8 py-8" x-data="artistsData">
-        <h2 class="font-black text-4xl">The Art</h2>
-        <h3 class="font-black text-xl">3 animals by 12 different artists</h3>
+    <section id="3-animals-explanation" class="relative z-10 bg-white px-8 py-8" x-data="artistsData">
+        <div class="text-center py-8">
+            <h2 class="font-black text-3xl xl:text-5xl z-10">Membership Collection Coming October</h2>
+            <h2 class="font-black text-4xl mt-8">About The Art</h2>
+            <h3 class="font-black text-xl">3 animals by 12 different artists</h3>
+        </div>
         <div class="flex justify-around font-black text-2xl max-w-screen-sm mx-auto">
             <div>The Octopus</div>
             <div>The Bee</div>
@@ -208,48 +212,72 @@
                 <div class="flex justify-center">
                     <div class="imgContainer h-96 w-96 relative" tabindex="0">
                         <div class="info bg-purple-100 bg-opacity-30">
-                            <h2 class="font-black text-3xl">Artist: <span  x-text="octopus().name"></span></h2>
+                            <h2 class="font-black text-3xl">Artist: <span x-text="octopus().name"></span></h2>
                         </div>
                         <img :src="octopus().artSrc" alt="" srcset="" class="object-contain">
                     </div>
                     <div class="imgContainer h-96 w-96 -mx-36 relative" tabindex="0">
                         <div class="info bg-purple-100 bg-opacity-30">
-                            <h2 class="font-black text-3xl ">Artist: <span  x-text="bee().name"></span></h2>
+                            <h2 class="font-black text-3xl ">Artist: <span x-text="bee().name"></span></h2>
                         </div>
                         <img :src="bee().artSrc" alt="" srcset="" class="object-contain object-center">
                     </div>
                     <div class="imgContainer h-96 w-96 relative" tabindex="0">
                         <div class="info bg-purple-100 bg-opacity-30">
-                            <h2 class="font-black text-3xl">Artist: <span  x-text="ant().name"></span></h2>
+                            <h2 class="font-black text-3xl">Artist: <span x-text="ant().name"></span></h2>
                         </div>
                         <img :src="ant().artSrc" alt="" srcset="" class="object-contain">
                     </div>
                 </div>
             </div>
             <div class="max-w-screen-sm mx-auto">
-                Our NFTs are made by 12 different artists from around the globe. Each artist made 5 different versions of the art, the detail and difficulty of which increased the higher the rarity. This is not a generative project, but a chance to own uniquely detailed hand crafted digital art. Click to see all the different artists' work.
+                Our NFTs are made by 12 different artists from around the globe. Each artist made 5 different versions
+                of the art, the detail and difficulty of which increased the higher the rarity. This is not a generative
+                project, but a chance to own uniquely detailed hand crafted digital art. Click to see all the different
+                artists' work.
                 <div class="text-center">
-                    <button class="bg-slate-400 px-6 py-4 rounded-lg text-white" @click="nextAll">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+                    <button class="bg-slate-400 px-6 py-4 rounded-lg text-white mt-6" @click="nextAll">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-    </section>
-    <section class="bg-green-50 relative z-10">
-        <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8 gap-8">
-            <div class="bg-white p-10 rounded-lg my-10 col-span-1 lg:col-span-3 2xl:col-start-2 text-center">
-                <h3 class="font-black text-3xl text-center">
-                    NFT Owners are elegible for airdrop of $VALOR governance Token when it launches
-                </h3>
-                <a href="https://valorize.app" class="flex justify-center">
-                    <div class="px-8 py-4 bg-gray-300 border-black border-2 font-bold mt-8 w-56">
-                        About Valorize
-                    </div>
+        <div class="bg-vpurple-100 text-center flex flex-col items-center justify-center relative z-0 mt-8 max-w-2xl px-12 mx-auto">
+            <h3 class="font-black text-lg xl:text-2xl z-10 my-12">
+                This Collection is for those that want to be involved in the DAO and
+                collaborate towards a better future
+            </h3>
+            <div class="mx-auto text-center pb-12">
+                <a href="#signup" data-scrollToTop
+                    class="relative z-20 py-4 text-center px-8 mt-4 bg-blue-900 text-white font-black rounded cursor-pointer">Get
+                    Email Updates
                 </a>
             </div>
+        </div>
+    </section>
+    <section class="relative bg-green-50 sm:px-8 py-12 max-w-screen">
+        <div class="bg-white p-10 rounded-lg my-10 col-span-1 lg:col-span-3 2xl:col-start-2 text-center">
+            <h3 class="font-black text-3xl text-center">
+                NFT Owners are elegible for airdrop of $VALOR governance Token when it launches
+            </h3>
+            <a href="https://valorize.app" class="flex justify-center">
+                <div class="px-8 py-4 bg-gray-300 border-black border-2 font-bold mt-8 w-56">
+                    About Valorize
+                </div>
+            </a>
+        </div>
+    </section>
+    <section class="bg-green-50 px-4 xl:px-24 py-20">
+        <h2 class="font-black text-3xl xl:pl-24">Our Membership Roadmap</h2>
+        <img src="img/roadmap_membership.png" class="2xl:max-w-7xl mx-auto mt-8 opacity-0" intersect-class="fade">
+    </section>
+    <section class="relative z-10 pt-20">
+        <h2 class="font-black text-4xl px-24 text-center">You can also buy an early access to our product in an NFT now!</h2>
+        <div class="grid lg:grid-cols-3 2xl:grid-cols-5 px-12 py-8 gap-8">
         </div>
         <div class="flex justify-center">
             <button class="btn" data-toggleModal>Mint Now!</button>
@@ -342,26 +370,6 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="relative bg-vpurple-100 sm:px-8 py-12 max-w-screen">
-        <div
-            class="bg-vpurple-100 text-center flex flex-col items-center justify-center relative z-0 h-[40vh] sm:h-[75vh]">
-            <h2 class="font-black text-3xl xl:text-5xl z-10 mt-12 sm:mt-48">Membership Collection Coming October 18</h2>
-            <h3 class="font-black text-lg xl:text-2xl z-10 my-12">For those that want to be involved in the DAO and
-                collaborate towards a better future</h3>
-            <div class="mx-auto text-center pb-12">
-                <a href="#signup" data-scrollToTop
-                    class="relative z-20 py-4 text-center px-8 mt-4 bg-blue-900 text-white font-black rounded cursor-pointer">Get
-                    Email Updates</a>
-            </div>
-            <img src="/img/membership_hero.png"
-                class="absolute top-0 z-0 max-h-[90vh] object-contain xl:w-[80vw] sm:-mt-24 xl:max-h-[75vh] opacity-0"
-                intersect-class="fade slow" alt="" srcset="">
-        </div>
-    </section>
-    <section class="bg-green-50 px-4 xl:px-24 py-20">
-        <h2 class="font-black text-3xl xl:pl-24">Our Membership Roadmap</h2>
-        <img src="img/roadmap_membership.png" class="2xl:max-w-7xl mx-auto mt-8 opacity-0" intersect-class="fade">
     </section>
     <section class="bg-vpurple-100 pb-8">
         <h2 class="text-center font-black text-3xl xl:text-5xl pt-20 lg:pt-48">

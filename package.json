@@ -2,7 +2,7 @@
   "scripts": {
     "watch": "watchify src/main.js -o dist/src/index.js",
     "css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "run": "live-server dist"
+    "dev": "live-server --port=8888 dist"
   },
   "devDependencies": {
     "postcss-import": "^14.1.0",

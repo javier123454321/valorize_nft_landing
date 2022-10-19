@@ -37418,9 +37418,9 @@ exports.artistsData = () => {
             return () => { this.indices[index] = (this.indices[index] + 1) % 4 }
         },
         nextAll() {
-            this.indices[0] += 1
-            this.indices[1] += 1
-            this.indices[2] += 1
+            this.indices[0] = (this.indices[0] + 1) % 4
+            this.indices[1] = (this.indices[1] + 1) % 4
+            this.indices[2] = (this.indices[2] + 1) % 4
         }
     }
 }
