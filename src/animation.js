@@ -1,8 +1,3 @@
-(() => {
-    setupAnimationsOnScroll()
-    setScrollToTop()
-    triggerMintModal()
-})()
 function triggerMintModal() {
     document.querySelectorAll("[data-toggleModal]").forEach(el => {
         const modal = document.querySelector("#minting-modal")
@@ -49,3 +44,7 @@ function setupAnimationsOnScroll() {
         observer.observe(intersection)
     })
 }
+
+setupAnimationsOnScroll()
+setScrollToTop()
+triggerMintModal()
