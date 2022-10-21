@@ -1,6 +1,8 @@
 function triggerMintModal() {
     document.querySelectorAll("[data-toggleModal]").forEach(el => {
-        const modal = document.querySelector("#minting-modal")
+        const id = el.dataset.togglemodal
+        console.log({ id })
+        const modal = document.querySelector("#minting-modal-" + id)
         const body = document.body;
         el.addEventListener('click', (e) => {
             if (modal.classList.contains("hidden")) {

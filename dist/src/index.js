@@ -37320,14 +37320,11 @@ utils.encode = function encode(arr, enc) {
 
 }).call(this)}).call(this,require("timers").setImmediate)
 },{"timers":3}],172:[function(require,module,exports){
-(() => {
-    setupAnimationsOnScroll()
-    setScrollToTop()
-    triggerMintModal()
-})()
 function triggerMintModal() {
     document.querySelectorAll("[data-toggleModal]").forEach(el => {
-        const modal = document.querySelector("#minting-modal")
+        const id = el.dataset.togglemodal
+        console.log({ id })
+        const modal = document.querySelector("#minting-modal-" + id)
         const body = document.body;
         el.addEventListener('click', (e) => {
             if (modal.classList.contains("hidden")) {
@@ -37371,6 +37368,10 @@ function setupAnimationsOnScroll() {
         observer.observe(intersection)
     })
 }
+
+setupAnimationsOnScroll()
+setScrollToTop()
+triggerMintModal()
 },{}],173:[function(require,module,exports){
 const artistInfo = {
     ant: [
@@ -38418,13 +38419,69 @@ const animation = require('./animation')
 const Alpine = require('alpinejs')
 const { mintModalProductNft } = require('./modal-logic')
 const { artistsData } = require('./artists')
+const { mintMembership } = require('./minting-membership')
 
 console.log(Alpine)
 Window.Alpine = Alpine.default
 Window.Alpine.data('mintModal', mintModalProductNft)
 Window.Alpine.data('artistsData', artistsData)
+Window.Alpine.data('mintMembership', mintMembership)
 Window.Alpine.start()
-},{"./animation":172,"./artists":173,"./modal-logic":176,"alpinejs":129}],176:[function(require,module,exports){
+},{"./animation":172,"./artists":173,"./minting-membership":176,"./modal-logic":177,"alpinejs":129}],176:[function(require,module,exports){
+
+exports.mintMembership = function membership() {
+    return {
+        nfts: [
+            {
+                title: "Whale",
+                price: .01,
+                description: "Whale mint function is for whales",
+                mechanicsGraphic: "/img/whaleMechanics.jpg"
+            },
+            {
+                title: "Seal",
+                price: .5,
+                description: "Seal mint function is for whales",
+                mechanicsGraphic: "/img/whaleMechanics.jpg"
+            },
+            {
+                title: "Plankton",
+                price: .02,
+                description: "Plankton mint function is for everyone",
+                mechanicsGraphic: "/img/whaleMechanics.jpg"
+            },
+        ],
+        showDescription: false,
+        index: 0,
+        deployTx: {},
+        txLink: '',
+        nextNft() {
+            this.index = ++this.index % this.nfts.length;
+        },
+        previousNft() {
+            this.index = Math.abs(--this.index % this.nfts.length);
+        },
+        nft() {
+            return this.nfts[this.index]
+        },
+        mintLess() {
+            this.nfts[this.index].amountToMint > 1 && this.nfts[this.index].amountToMint--
+        },
+        mintMore() {
+            this.nfts[this.index].amountToMint < 10 && this.nfts[this.index].amountToMint++
+        },
+        price() {
+            const price = (this.nfts[this.index].price * this.nfts[this.index].amountToMint).toPrecision(2)
+            return price
+        },
+        mintingErrorMsg: "",
+        mintingError: false,
+        minting: false,
+        minted: false,
+        mintingStatus: "",
+    }
+}
+},{}],177:[function(require,module,exports){
 const ethers = require("ethers")
 const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
