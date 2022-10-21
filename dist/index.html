@@ -61,7 +61,7 @@
                     </form>
                 </div>
                 <div class="mx-auto text-center pb-8">
-                    <a href="https://discord.gg/5N4cAVFyxc" target="_blank"
+                    <a href="https://discord.gg/3PRMWrH9DT" target="_blank"
                         class="text-center flex flex-col items-center">
                         <div class="font-black text-xl px-4 py-2 rounded-lg border-black border bg-blue-900 text-white">
                             Join Discord
@@ -97,6 +97,28 @@
                 <h1 class="text-white font-black text-4xl py-4 text-center flex items-center justify-center">
                     Mint a &nbsp;<span x-text="nft().title"></span>&nbsp; NFT
                 </h1>
+                <div class="object-contain flex">
+                    <div class="w-1/2">
+                        <img :src="nftPreviewImage()" alt="" class="px-8 rotateImg">
+                    </div>
+                    <div class="w-1/2">
+                        <div>Artist: <span x-text="randomArtist().fullName"></span></div>
+                        <div>Rarity: <span x-text="rarityString()"></span></div>
+                    </div>
+                </div>
+                    <button @click="setupRandomPreview">Get Random NFT</button>
+                <button @click="() => showDescription = !showDescription">
+                    <svg x-show="!showDescription" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                    <svg x-show="showDescription" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                    </svg>                      
+                </button>
+                <div class="max-w-xl mx-auto" x-show="showDescription">
+                    <img :src="nft().mechanicsGraphic" alt="" srcset="" class="">
+                </div>
             </div>
         </div>
     </div>
@@ -408,7 +430,7 @@
                 let’s be bold together.</p>
         </div>
         <div class="mx-auto text-center pb-12">
-            <a href="https://discord.gg/5N4cAVFyxc" target="_blank" class="text-center flex flex-col items-center">
+            <a href="https://discord.gg/3PRMWrH9DT" target="_blank" class="text-center flex flex-col items-center">
                 <div class="font-black text-xl px-4 py-2 rounded-lg border-black border bg-blue-900 text-white">
                     Join Us Today!
                 </div>

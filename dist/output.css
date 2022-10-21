@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.1.2 | MIT License | https://tailwindcss.com
+! tailwindcss v3.2.1 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -355,13 +355,6 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   /* 2 */
 }
 
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  opacity: 1;
-  /* 1 */
-  color: #9ca3af;
-  /* 2 */
-}
-
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
@@ -415,6 +408,12 @@ img,
 video {
   max-width: 100%;
   height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden] {
+  display: none;
 }
 
 *, ::before, ::after {
@@ -562,6 +561,10 @@ video {
   visibility: visible;
 }
 
+.collapse {
+  visibility: collapse;
+}
+
 .static {
   position: static;
 }
@@ -579,7 +582,6 @@ video {
 }
 
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -742,12 +744,12 @@ video {
   display: none;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-6 {
   height: 1.5rem;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .h-96 {
@@ -776,6 +778,10 @@ video {
 
 .w-6 {
   width: 1.5rem;
+}
+
+.w-1\/2 {
+  width: 50%;
 }
 
 .w-\[30\%\] {
@@ -808,6 +814,10 @@ video {
 
 .max-w-lg {
   max-width: 32rem;
+}
+
+.max-w-xl {
+  max-width: 36rem;
 }
 
 .max-w-\[40\%\] {
@@ -943,14 +953,14 @@ video {
   background-color: rgb(30 58 138 / var(--tw-bg-opacity));
 }
 
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
 .bg-slate-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-slate-600 {
@@ -1240,17 +1250,15 @@ video {
 }
 
 .transition-colors {
-  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
 .transition {
-  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1327,19 +1335,42 @@ video {
   transform: scale(1);
 }
 
-@-webkit-keyframes flashBg {
+.rotateImg {
+  -webkit-animation: rotate3dPreview 6s ease-in-out infinite;
+          animation: rotate3dPreview 6s ease-in-out infinite;
+}
+
+@-webkit-keyframes rotate3dPreview {
   0% {
+    transform:   rotate3d(1,-3,0,20deg);
+    filter: drop-shadow(0 25px 25px rgba(239, 132, 241, 0.36));
+  }
+
+  50% {
+    transform:   rotate3d(1,4,0,-20deg);
+    filter: drop-shadow(12px 12px 12px rgba(239, 132, 241, 0.36));
   }
 
   100% {
+    transform:  rotate3d(1,-3,0,20deg);
+    filter: drop-shadow(0 25px 25px rgba(239, 132, 241, 0.36));
   }
 }
 
-@keyframes flashBg {
+@keyframes rotate3dPreview {
   0% {
+    transform:   rotate3d(1,-3,0,20deg);
+    filter: drop-shadow(0 25px 25px rgba(239, 132, 241, 0.36));
+  }
+
+  50% {
+    transform:   rotate3d(1,4,0,-20deg);
+    filter: drop-shadow(12px 12px 12px rgba(239, 132, 241, 0.36));
   }
 
   100% {
+    transform:  rotate3d(1,-3,0,20deg);
+    filter: drop-shadow(0 25px 25px rgba(239, 132, 241, 0.36));
   }
 }
 

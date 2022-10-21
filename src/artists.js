@@ -1,21 +1,21 @@
 const artistInfo = {
     ant: [
-        { name: "Jaye", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Jaye_WEB.jpg" },
-        { name: "NFT Sammy", artSrc: "/img/nfts/ValorizeNFT_01_Silver_NFTSammy_WEB.jpg" },
-        { name: "Callum", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Callum_WEB.jpg" },
-        { name: "Angga", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Angga_WEB.jpg" }
+        { name: "Jaye", artSrc: "/img/nfts/silver/jaye.jpg" },
+        { name: "NFT Sammy", artSrc: "/img/nfts/silver/nftsammy.jpg" },
+        { name: "Callum", artSrc: "/img/nfts/silver/callum.jpg" },
+        { name: "Angga", artSrc: "/img/nfts/silver/angga.jpg" }
     ],
     octopus: [
-        { name: "Iqbal", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Iqbal_WEB.jpg" },
-        { name: "Joel", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Joel_WEB.jpg" },
-        { name: "Martin", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Mart_WEB.png" },
-        { name: "Nahuel", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Nahuel_WEB.jpg" }
+        { name: "Iqbal", artSrc: "/img/nfts/silver/iqbal.jpg" },
+        { name: "Joel", artSrc: "/img/nfts/silver/joel.jpg" },
+        { name: "Martin", artSrc: "/img/nfts/silver/mart.jpg" },
+        { name: "Nahuel", artSrc: "/img/nfts/silver/nahuel.jpg" }
     ],
     bee: [
-        { name: "Alana", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Alana_WEB.jpg" },
-        { name: "Calicho Art", artSrc: "/img/nfts/ValorizeNFT_01_Silver_CalichoArt_WEB.jpg" },
-        { name: "Neda", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Neda_WEB.jpg" },
-        { name: "QStorm", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Qstom_WEB.jpg" }
+        { name: "Alana", artSrc: "/img/nfts/silver/alana.jpg" },
+        { name: "Calicho Art", artSrc: "/img/nfts/silver/calichoArt.jpg" },
+        { name: "Neda", artSrc: "/img/nfts/silver/neda.jpg" },
+        { name: "QStorm", artSrc: "/img/nfts/silver/qstom.jpg" }
     ]
 }
 function shuffle(array) {

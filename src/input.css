@@ -41,11 +41,22 @@
     transform: scale(1);
 }
 
+.rotateImg {
+    animation: rotate3dPreview 6s ease-in-out infinite;
+}
 
-@keyframes flashBg {
+@keyframes rotate3dPreview {
     0% {
+        transform:   rotate3d(1,-3,0,20deg);
+        filter: drop-shadow(0 25px 25px rgba(239, 132, 241, 0.36));
+    }
+    50% {
+        transform:   rotate3d(1,4,0,-20deg);
+        filter: drop-shadow(12px 12px 12px rgba(239, 132, 241, 0.36));
     }
     100% {
+        transform:  rotate3d(1,-3,0,20deg);
+        filter: drop-shadow(0 25px 25px rgba(239, 132, 241, 0.36));
     }
 }
 
