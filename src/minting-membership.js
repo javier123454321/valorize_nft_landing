@@ -45,19 +45,25 @@ exports.mintMembership = function membership() {
                 title: "Whale",
                 price: .01,
                 description: "Whale mint function is for whales",
-                mechanicsGraphic: "/img/mechanicsWhale.jpg"
+                mechanicsGraphic: "/img/mechanicsWhale.jpg",
+                previous: "Plankton",
+                next: "Seal",
             },
             {
                 title: "Seal",
                 price: .5,
                 description: "Seal mint function is for whales",
-                mechanicsGraphic: "/img/mechanicsSeal.jpg"
+                mechanicsGraphic: "/img/mechanicsSeal.jpg",
+                previous: "Whale",
+                next: "Plankton",
             },
             {
                 title: "Plankton",
                 price: .02,
                 description: "Plankton mint function is for everyone",
-                mechanicsGraphic: "/img/mechanicsPlankton.jpg"
+                mechanicsGraphic: "/img/mechanicsPlankton.jpg",
+                previous: "Seal",
+                next: "Whale",
             },
         ],
         randomRarity: 0,
@@ -78,6 +84,8 @@ exports.mintMembership = function membership() {
             return artists[this.randomArtistIndex].fullName
         },
         showDescription: false,
+        previousMint: '',
+        nextMint: '',
         index: 0,
         deployTx: {},
         txLink: '',
