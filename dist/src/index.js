@@ -37375,22 +37375,22 @@ triggerMintModal()
 },{}],173:[function(require,module,exports){
 const artistInfo = {
     ant: [
-        { name: "Jaye", artSrc: "/img/nfts/silver/jaye.jpg" },
-        { name: "NFT Sammy", artSrc: "/img/nfts/silver/nftsammy.jpg" },
-        { name: "Callum", artSrc: "/img/nfts/silver/callum.jpg" },
-        { name: "Angga", artSrc: "/img/nfts/silver/angga.jpg" }
+        { name: "Jaye", artSrc: "/img/nfts/diamond/jaye.jpg" },
+        { name: "NFT Sammy", artSrc: "/img/nfts/diamond/nftsammy.jpg" },
+        { name: "Callum", artSrc: "/img/nfts/diamond/callum.jpg" },
+        { name: "Angga", artSrc: "/img/nfts/diamond/angga.jpg" }
     ],
     octopus: [
-        { name: "Iqbal", artSrc: "/img/nfts/silver/iqbal.jpg" },
-        { name: "Joel", artSrc: "/img/nfts/silver/joel.jpg" },
-        { name: "Martin", artSrc: "/img/nfts/silver/mart.jpg" },
-        { name: "Nahuel", artSrc: "/img/nfts/silver/nahuel.jpg" }
+        { name: "Iqbal", artSrc: "/img/nfts/diamond/iqbal.jpg" },
+        { name: "Joel", artSrc: "/img/nfts/diamond/joel.jpg" },
+        { name: "Martin", artSrc: "/img/nfts/diamond/mart.jpg" },
+        { name: "Nahuel", artSrc: "/img/nfts/diamond/nahuel.jpg" }
     ],
     bee: [
-        { name: "Alana", artSrc: "/img/nfts/silver/alana.jpg" },
-        { name: "Calicho Art", artSrc: "/img/nfts/silver/calichoArt.jpg" },
-        { name: "Neda", artSrc: "/img/nfts/silver/neda.jpg" },
-        { name: "QStorm", artSrc: "/img/nfts/silver/qstom.jpg" }
+        { name: "Alana", artSrc: "/img/nfts/diamond/alana.jpg" },
+        { name: "Calicho Art", artSrc: "/img/nfts/diamond/calichoArt.jpg" },
+        { name: "Neda", artSrc: "/img/nfts/diamond/neda.jpg" },
+        { name: "QStorm", artSrc: "/img/nfts/diamond/qstom.jpg" }
     ]
 }
 function shuffle(array) {
