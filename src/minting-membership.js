@@ -27,9 +27,19 @@ const artists = [
     { shortName: "iqbal", fullName:'Iqbal Hakim Boo', },
 ]
 const rarities = ["silver", "gold", "diamond", "obsidian", "mycelia"]
+const rarityDescriptors = {
+    "SILVER": "Silver rarity is the lowest rarity, there are 100 NFTs that share this art.",
+    "GOLD": "Gold rarity is the second lowest rarity, there are 60 NFTs that share this particular artwork. This is the lowest possible rarity for a Seal Mint function.",
+    "DIAMOND": "Diamond rarity is the third lowest rarity. There are only 20 NFTs that share this artwork. Diamond is the lowest rarity possible when you use the Whale Mint function.",
+    "OBSIDIAN": "Obsidian rarity is the second highest rarity. Only 5 NFTs will share this art.",
+    "MYCELIA": "Mycelia is the highest rarity. The mycelia NFTs are completely unique 1 of 1 artworks."
+}
 
 exports.mintMembership = function membership() {
     return {
+        init() {
+            this.setupRandomPreview()
+        },
         nfts: [
             {
                 title: "Whale",
@@ -52,9 +62,11 @@ exports.mintMembership = function membership() {
         ],
         randomRarity: 0,
         randomArtistIndex: 0,
+        randomArtDescription: '',
         setupRandomPreview() {
             this.randomRarity = Math.round(Math.random() * 4)
-            this.randomArtist = Math.round(Math.random() * 11)
+            this.randomArtistIndex = Math.round(Math.random() * 11)
+            this.randomArtDescription = rarityDescriptors[this.rarityString()]
         },
         nftPreviewImage() {
             return '/img/nfts/' + rarities[this.randomRarity] + '/' + artists[this.randomArtistIndex].shortName + '.jpg'
@@ -63,7 +75,7 @@ exports.mintMembership = function membership() {
             return rarities[this.randomRarity].toLocaleUpperCase()
         },
         randomArtist() {
-            return artists[this.randomArtistIndex]
+            return artists[this.randomArtistIndex].fullName
         },
         showDescription: false,
         index: 0,
