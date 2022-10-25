@@ -37433,6 +37433,10 @@ exports.contractAddress = {
   "1" : "0x25E0A7767d03461EaF88b47cd9853722Fe05DFD3",
   "3" : "0x0cbE65F21B0a4775f90A5BdC2d90A0a1EB9A9Cdc"
 }
+exports.contractAddressMembership = {
+  "5": "0x7E73FF88483C51E12237A2e0F5375232167dDa46"
+}
+
 exports.abi=[
   {
     "inputs": [
@@ -38414,6 +38418,936 @@ exports.abi=[
     "type": "function"
   }
 ]
+exports.abiMembership = [
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_URI",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_whaleCalls",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_sealCalls",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_planktonCalls",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_royaltyDistributorAddresses",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_royaltyRecipients",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "approved",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "rarity",
+        "type": "string"
+      }
+    ],
+    "name": "MintedTokenInfo",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "previousRecipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newRecipient",
+        "type": "address"
+      }
+    ],
+    "name": "RecipientUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ARTIST_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PRICE_PER_PLANKTON_TOKEN",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PRICE_PER_SEAL_TOKEN",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PRICE_PER_WHALE_TOKEN",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum MembershipNft.MintType",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "name": "TokenIdsByMintType",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "startingMycelia",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingMycelia",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingObsidian",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingObsidian",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingDiamond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingDiamond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingGold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingGold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingSilver",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingSilver",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "URI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "freeze",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getApproved",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "inquired",
+        "type": "address"
+      }
+    ],
+    "name": "getRoleName",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownerOf",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "planktonTokensLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "randomPlanktonMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "randomSealMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "randomWhaleMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "rarityByTokenId",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "royaltyDistributorAddresses",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_salePrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "royaltyInfo",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "royaltyAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "royaltyRecipients",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sealTokensLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "baseURI",
+        "type": "string"
+      }
+    ],
+    "name": "setURI",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenURI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "previousRecipient",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "newRecipient",
+        "type": "address"
+      }
+    ],
+    "name": "updateRoyaltyRecepient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "whaleTokensLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawEther",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
 },{}],175:[function(require,module,exports){
 const animation = require('./animation')
 const Alpine = require('alpinejs')
@@ -38428,6 +39362,13 @@ Window.Alpine.data('artistsData', artistsData)
 Window.Alpine.data('mintMembership', mintMembership)
 Window.Alpine.start()
 },{"./animation":172,"./artists":173,"./minting-membership":176,"./modal-logic":177,"alpinejs":129}],176:[function(require,module,exports){
+const {
+    sendRequestMethodToEtherObject,
+    getTokenInfo,
+    getNetworkInfo,
+} = require("./utilities/nftMetadataUtils")
+const ethers = require("ethers")
+
 const artistFullNames = [
     'Calicho Arevalo',
     'Alana McCarthy',
@@ -38527,12 +39468,99 @@ exports.mintMembership = function membership() {
         minting: false,
         minted: false,
         mintingStatus: "",
+        async mint() {
+            this.mintingError = false
+            this.mintingErrorMsg = ''
+            this.mintingStatus = "Requesting your wallet to connect"
+            const hasProvider = await sendRequestMethodToEtherObject()
+            if (!hasProvider) {
+                this.setError("We requested you to connect your wallet, please do to continue")
+                return
+            }
+            this.mintingStatus = "Getting contract info"
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner();
+            const networkInfo = await getNetworkInfo(provider)
+            console.log({ networkInfo })
+            if (networkInfo.error) {
+                this.setError("Please connect to mainnet")
+            }
+            const productNft = new ethers.Contract(
+                contractAddress[networkInfo.chainId],
+                abi,
+                signer
+            )
+            const priceInEth = ethers.utils.parseEther(this.nfts[this.index].price.toString())
+                .mul(BigNumber.from(this.nfts[this.index].amountToMint));
+            let receipt;
+            try {
+                this.mintingStatus = "Requesting transaction"
+                console.log("sending", priceInEth.toString())
+                this.mintingStatus = "Waiting for transaction to confirm"
+                const mintingFunction = ["rarestBatchMint", "rareBatchMint", "rarerBatchMint"][this.index]
+                const deployTx = await productNft[mintingFunction](this.nfts[this.index].amountToMint, { value: priceInEth })
+                this.minting = true
+                this.mintingStatus = `<div class="pt-8 pb-2">Transaction submitted, minting now!</div>
+<div class="p-4 flex justify-center">
+    <img src="/img/puff.svg">
+</div>`
+                receipt = await deployTx.wait()
+                this.deployTx = receipt
+                this.txLink = `https://${networkInfo.chainId == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}`
+                setTimeout(() => this.minted = true, 3000)
+                this.mintingStatus = `Minted!
+                <a 
+                    href='${this.txLink}'
+                    target="_blank"
+                    class="border-b pb-1">
+                    See your transaction here!
+                </a>`
+                console.log({ receipt })
+            } catch (err) {
+                if (err.toString().search(/Batch sold out/) !== -1) {
+                    this.setError("Batch is sold out! Check soon and follow our twitter to find out about next batches")
+                    return
+                } else if (err.toString().search(/rarity is sold out/) !== -1) {
+                    this.setError("We are sold out of " + this.nft().title + " NFTS!")
+                    return
+                }
+                this.setError("Error minting, Sorry! Please contact us to figure out what happened")
+            }
+            const info = await productNft.queryFilter(productNft.filters.MintedTokenInfo(), receipt.blockHash)
+            const event = info.find(e => e.transactionHash === receipt.transactionHash)
+            if (event) {
+                const tokenId = event.args.tokenId.toString()
+                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                if (tokenInfo) {
+                    tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
+                    this.tokenInfo = tokenInfo
+                    return
+                } 
+            }
+                this.setError(`
+                    Somehow we got an error getting your token info. <br>
+                    <a class="border-b pb-1" href='${this.txLink}}'>
+                        You can see it here: 
+                    </a>
+                `)
+        },
+        setError(msg) {
+            this.minting = false
+            this.mintingError = true
+            this.mintingErrorMsg = msg
+        },
     }
 }
-},{}],177:[function(require,module,exports){
+},{"./utilities/nftMetadataUtils":178,"ethers":152}],177:[function(require,module,exports){
 const ethers = require("ethers")
+console.log({ethers})
 const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
+const {
+    sendRequestMethodToEtherObject,
+    getTokenInfo,
+    getNetworkInfo,
+} = require("./utilities/nftMetadataUtils")
 
 exports.mintModalProductNft = function mintModalProductNFT() {
     return {
@@ -38678,14 +39706,6 @@ exports.mintModalProductNft = function mintModalProductNFT() {
         }
     }
 }
-async function sendRequestMethodToEtherObject() {
-    try {
-        await ethereum.request({ method: "eth_requestAccounts" })
-        return true
-    } catch (err) {
-        return false
-    }
-}
 
 /**
  * @param {string} rarity
@@ -38698,6 +39718,17 @@ function getUrlPublic(rarity) {
         diamond: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&quality=720p"
     }
     return urls[rarity]
+}
+},{"./consts":174,"./utilities/nftMetadataUtils":178,"ethers":152}],178:[function(require,module,exports){
+const ethers = require("ethers")
+
+async function sendRequestMethodToEtherObject() {
+    try {
+        await ethereum.request({ method: "eth_requestAccounts" })
+        return true
+    } catch (err) {
+        return false
+    }
 }
 
 /**
@@ -38730,4 +39761,11 @@ async function getNetworkInfo(provider) {
     })
     return { chainId, error: false }
 }
-},{"./consts":174,"ethers":152}]},{},[175]);
+
+module.exports = {
+    sendRequestMethodToEtherObject,
+    getTokenInfo,
+    getNetworkInfo,
+}
+    
+},{"ethers":152}]},{},[175]);

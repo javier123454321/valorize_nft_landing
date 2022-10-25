@@ -1,3 +1,10 @@
+const {
+    sendRequestMethodToEtherObject,
+    getTokenInfo,
+    getNetworkInfo,
+} = require("./utilities/nftMetadataUtils")
+const ethers = require("ethers")
+
 const artistFullNames = [
     'Calicho Arevalo',
     'Alana McCarthy',
@@ -97,5 +104,86 @@ exports.mintMembership = function membership() {
         minting: false,
         minted: false,
         mintingStatus: "",
+        async mint() {
+            this.mintingError = false
+            this.mintingErrorMsg = ''
+            this.mintingStatus = "Requesting your wallet to connect"
+            const hasProvider = await sendRequestMethodToEtherObject()
+            if (!hasProvider) {
+                this.setError("We requested you to connect your wallet, please do to continue")
+                return
+            }
+            this.mintingStatus = "Getting contract info"
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner();
+            const networkInfo = await getNetworkInfo(provider)
+            console.log({ networkInfo })
+            if (networkInfo.error) {
+                this.setError("Please connect to mainnet")
+            }
+            const productNft = new ethers.Contract(
+                contractAddress[networkInfo.chainId],
+                abi,
+                signer
+            )
+            const priceInEth = ethers.utils.parseEther(this.nfts[this.index].price.toString())
+                .mul(BigNumber.from(this.nfts[this.index].amountToMint));
+            let receipt;
+            try {
+                this.mintingStatus = "Requesting transaction"
+                console.log("sending", priceInEth.toString())
+                this.mintingStatus = "Waiting for transaction to confirm"
+                const mintingFunction = ["rarestBatchMint", "rareBatchMint", "rarerBatchMint"][this.index]
+                const deployTx = await productNft[mintingFunction](this.nfts[this.index].amountToMint, { value: priceInEth })
+                this.minting = true
+                this.mintingStatus = `<div class="pt-8 pb-2">Transaction submitted, minting now!</div>
+<div class="p-4 flex justify-center">
+    <img src="/img/puff.svg">
+</div>`
+                receipt = await deployTx.wait()
+                this.deployTx = receipt
+                this.txLink = `https://${networkInfo.chainId == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}`
+                setTimeout(() => this.minted = true, 3000)
+                this.mintingStatus = `Minted!
+                <a 
+                    href='${this.txLink}'
+                    target="_blank"
+                    class="border-b pb-1">
+                    See your transaction here!
+                </a>`
+                console.log({ receipt })
+            } catch (err) {
+                if (err.toString().search(/Batch sold out/) !== -1) {
+                    this.setError("Batch is sold out! Check soon and follow our twitter to find out about next batches")
+                    return
+                } else if (err.toString().search(/rarity is sold out/) !== -1) {
+                    this.setError("We are sold out of " + this.nft().title + " NFTS!")
+                    return
+                }
+                this.setError("Error minting, Sorry! Please contact us to figure out what happened")
+            }
+            const info = await productNft.queryFilter(productNft.filters.MintedTokenInfo(), receipt.blockHash)
+            const event = info.find(e => e.transactionHash === receipt.transactionHash)
+            if (event) {
+                const tokenId = event.args.tokenId.toString()
+                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                if (tokenInfo) {
+                    tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
+                    this.tokenInfo = tokenInfo
+                    return
+                } 
+            }
+                this.setError(`
+                    Somehow we got an error getting your token info. <br>
+                    <a class="border-b pb-1" href='${this.txLink}}'>
+                        You can see it here: 
+                    </a>
+                `)
+        },
+        setError(msg) {
+            this.minting = false
+            this.mintingError = true
+            this.mintingErrorMsg = msg
+        },
     }
 }

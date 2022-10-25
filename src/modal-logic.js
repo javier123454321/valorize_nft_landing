@@ -1,6 +1,12 @@
 const ethers = require("ethers")
+console.log({ethers})
 const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
+const {
+    sendRequestMethodToEtherObject,
+    getTokenInfo,
+    getNetworkInfo,
+} = require("./utilities/nftMetadataUtils")
 
 exports.mintModalProductNft = function mintModalProductNFT() {
     return {
@@ -146,14 +152,6 @@ exports.mintModalProductNft = function mintModalProductNFT() {
         }
     }
 }
-async function sendRequestMethodToEtherObject() {
-    try {
-        await ethereum.request({ method: "eth_requestAccounts" })
-        return true
-    } catch (err) {
-        return false
-    }
-}
 
 /**
  * @param {string} rarity
@@ -166,35 +164,4 @@ function getUrlPublic(rarity) {
         diamond: "https://player.vimeo.com/video/751516045?h=a6bb1b7b05&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&autoplay=1&loop=1&quality=720p"
     }
     return urls[rarity]
-}
-
-/**
- * Needs the instantiated contract object and returns the metadata
- * @param {ethers.Contract} nftContractInstance
- * @param {string} tokenId
- * @returns {{title: string, animation_url:string, properties:object}}
- */
-async function getTokenInfo(nftContractInstance, tokenId) {
-    const url = await nftContractInstance.uri(tokenId)
-    const req = await fetch(url)
-    console.log({url})
-    if (!req.ok) return 
-    console.log({req})
-    return req.json()
-}
-
-async function getNetworkInfo(provider) {
-    const networkData = await provider.getNetwork()
-    const chainId = networkData.chainId.toString()
-    console.log({ chainId })
-
-    if (!["1", "3"].includes(chainId)) return { chainId, error: true, msg: "Incorrect Chain" }
-    provider.on("network", async (newNetwork, oldNetwork) => {
-        if (oldNetwork) {
-            if (!["1", "3"].includes(newNetwork.chainId.toString())) {
-                console.log("succesfully changed to valid network")
-            }
-        }
-    })
-    return { chainId, error: false }
 }
