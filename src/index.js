@@ -37387,7 +37387,7 @@ const artistInfo = {
     ],
     bee: [
         { name: "Alana", artSrc: "/img/nfts/diamond/alana.jpg" },
-        { name: "Calicho Art", artSrc: "/img/nfts/diamond/calichoArt.jpg" },
+        { name: "Calicho Art", artSrc: "/img/nfts/diamond/calichoart.jpg" },
         { name: "Neda", artSrc: "/img/nfts/diamond/neda.jpg" },
         { name: "QStorm", artSrc: "/img/nfts/diamond/qstom.jpg" }
     ]
