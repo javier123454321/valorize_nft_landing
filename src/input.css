@@ -45,6 +45,14 @@
     animation: rotate3dPreview 6s ease-in-out infinite;
 }
 
+
+.hover-rightBtn svg {
+    transition:  1s ease-in-out;
+}
+.hover-rightBtn:hover svg {
+    transform: translateX(-100%) scale(1.1);
+}
+
 @keyframes rotate3dPreview {
     0% {
         transform:   rotate3d(1,-3,0,20deg);

@@ -129,7 +129,8 @@
                 </div>
                 <div class="text-center mt-8 font-black text-3xl">Price <span x-text="nft().price"></span></div>
                 <div class="flex justify-between my-8">
-                    <button class="flex flex-col text-center lg:px-12 w-1/6" @click="() => index = (index + 2) % 3">
+                    <button class="flex flex-col text-center lg:px-12 w-1/6 hover-leftBtn lg:ml-4 hover:bg-slate-800 hover:ml-0 duration-500" 
+                        @click="() => index = (index + 2) % 3">
                         <span x-text="nft().previous"></span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
@@ -140,7 +141,7 @@
                     <div class="w-1/2 flex justify-center">
                         <button class="p-4 rounded bg-blue-800"><span x-text="nft().title"></span> Mint</button>
                     </div>
-                    <button class="flex flex-col text-center lg:px-12 w-1/6 items-end"
+                    <button class="flex flex-col text-center lg:px-12 w-1/6 items-end lg:mr-4 hover:bg-slate-800 hover:mr-0 duration-500"
                         @click="() => index = (index + 1) % 3">
                         <span x-text="nft().next"></span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -195,7 +196,7 @@
                         </div>
                     </div>
                     <button @click="nextNft"
-                        class="text-white w-[30%] transition-colors duration-500 hover:bg-slate-800 bg-opacity-50 flex justify-center items-center">
+                        class="text-white w-[30%] transition-colors duration-500 hover:bg-slate-800 bg-opacity-50 flex justify-center items-center hover-rightBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
