@@ -47,7 +47,8 @@
                                     <input class="formkit-input" name="email_address" id="signup"
                                         aria-label="Email Address" placeholder="Email Address" required="" type="email"
                                         style="color: rgb(146, 146, 146); border-color: rgb(228, 231, 234); border-radius: 0px; font-weight: 400;">
-                                </div><button data-element="submit" class="formkit-submit formkit-submit"
+                                </div>
+                                <button data-element="submit" class="formkit-submit formkit-submit"
                                     style="color: rgb(255, 255, 255); background-color: rgb(199, 92, 86); border-radius: 0px; font-weight: 700;">
                                     <div class="formkit-spinner">
                                         <div></div>
@@ -61,12 +62,7 @@
                     </form>
                 </div>
                 <div class="mx-auto text-center pb-8">
-                    <a href="https://discord.gg/3PRMWrH9DT" target="_blank"
-                        class="text-center flex flex-col items-center">
-                        <div class="font-black text-xl px-4 py-2 rounded-lg border-black border bg-blue-900 text-white">
-                            Join Discord
-                        </div>
-                    </a>
+                    <button class="btn" data-toggleModal="membership">Mint Now!</button>
                 </div>
             </div>
             <!-- <div id="hero-image2-filter" class="z-20 w-screen">
@@ -86,68 +82,73 @@
         </div>
     </section>
     <div class="fixed top-0 left-0 z-20 hidden" id="minting-modal-membership" x-data="mintMembership">
-        <button data-toggleModal="membership" class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700">
+        <button data-toggleModal="membership"
+            class="fixed top-2 left-4 text-white p-6 rounded-full bg-slate-700 bg-opacity-50 lg:bg-opacity-100">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-        <div class="grid grid-cols-10 bg-black bg-opacity-50 w-screen h-screen">
-            <div class="bg-black col-span-8 col-start-2 text-white" x-show="!minted">
+        <div class="grid grid-cols-10 bg-black bg-opacity-50 w-screen h-screen overflow-y-scroll">
+            <div class="bg-black col-span-10 lg:col-span-8 lg:col-start-2 text-white " x-show="!minted">
                 <h1 class="text-white font-black text-4xl py-4 text-center flex items-center justify-center">
                     Mint a &nbsp;<span x-text="nft().title"></span>&nbsp; NFT
                 </h1>
-                <div class="object-contain flex">
-                    <div class="w-1/2 h-96 flex justify-center">
+                <div class="flex justify-center pb-4">
+                    <button @click="() => showDescription = !showDescription"
+                        class="flex mt-12 bg-slate-800 font-black px-4 py-2 rounded">
+                        <div>
+                            <span x-show="!showDescription">Show Minting Statistics</span>
+                            <span x-show="showDescription">Show Art Preview</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="max-w-xl mx-auto" x-show="showDescription">
+                    <img :src="nft().mechanicsGraphic" alt="" srcset="" class="h-100 px-4 lg:px-0">
+                </div>
+                <div class="object-contain lg:flex flex-col lg:flex-row" x-show="!showDescription">
+                    <div class="lg:w-1/2 lg:h-96 px-12 lg:px-0 flex justify-center">
                         <img :src="nftPreviewImage()" alt="" class="rotateImg h-96 max-w-96 object-contain rounded">
                     </div>
-                    <div class="w-1/2 flex flex-col justify-between">
-                        <div class="font-black text-2xl">Artist: <span x-text="randomArtist()"></span></div>
-                        <div class="font-black text-2xl">Rarity: <span x-text="rarityString()"></span></div>
-                        <div class="font-black mt-4">About this NFT: <span x-text="randomArtDescription"></span></div>
-                        <button @click="setupRandomPreview" class="px-4 py-2 rounded bg-slate-800 flex items-center justify-center h-12 w-48">
+                    <div class="lg:w-1/2 flex flex-col justify-between px-4 lg:px-0 mt-4 lg:mt-0">
+                        <div class="font-black text-2xl">Artist: <br><span class="text-slate-50" x-text="randomArtist()"></span></div>
+                        <div class="font-black text-2xl">Rarity: <br><span class="text-slate-50" x-text="rarityString()"></span></div>
+                        <div class="font-black mt-4">About this NFT: <br><span class="text-slate-50" x-text="randomArtDescription"></span></div>
+                        <button @click="setupRandomPreview"
+                            class="px-4 py-2 rounded bg-slate-800 flex items-center justify-center h-12 w-48">
                             Random Preview
                             <div class="h-8 w-8 flex items-center justify-center">
-                                <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                </svg>                              
+                                <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                </svg>
                             </div>
                         </button>
                     </div>
                 </div>
                 <div class="text-center mt-8 font-black text-3xl">Price <span x-text="nft().price"></span></div>
                 <div class="flex justify-between my-8">
-                    <button class="flex flex-col text-center px-12 w-1/6" @click="() => index = (index + 2) % 3">
+                    <button class="flex flex-col text-center lg:px-12 w-1/6" @click="() => index = (index + 2) % 3">
                         <span x-text="nft().previous"></span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>                          
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </button>
                     <div class="w-1/2 flex justify-center">
                         <button class="p-4 rounded bg-blue-800"><span x-text="nft().title"></span> Mint</button>
                     </div>
-                    <button class="flex flex-col text-center px-12 w-1/6 items-end" @click="() => index = (index + 1) % 3">
+                    <button class="flex flex-col text-center lg:px-12 w-1/6 items-end"
+                        @click="() => index = (index + 1) % 3">
                         <span x-text="nft().next"></span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </button>
-                </div>
-                <button @click="() => showDescription = !showDescription" class="flex mt-12 ml-12 bg-slate-800 font-black px-4 py-2 rounded">
-                    <svg x-show="!showDescription" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                    <svg x-show="showDescription" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                    </svg>
-                    <div>
-                        <span x-show="!showDescription">Show Minting Statistics</span>
-                        <span x-show="showDescription">Hide Minting Statistics</span>
-                    </div>                
-                </button>
-                <div class="max-w-xl mx-auto" x-show="showDescription">
-                    <img :src="nft().mechanicsGraphic" alt="" srcset="" class="h-100">
                 </div>
             </div>
         </div>
@@ -269,14 +270,14 @@
             <h2 class="font-black text-4xl mt-8">About The Art</h2>
             <h3 class="font-black text-xl">3 animals by 12 different artists</h3>
         </div>
-        <div class="flex justify-around font-black text-2xl max-w-screen-sm mx-auto">
+        <div class="lg:flex justify-around font-black text-2xl max-w-screen-sm mx-auto hidden">
             <div>The Octopus</div>
             <div>The Bee</div>
             <div>The Ant</div>
         </div>
         <div class="pt-4 clippedArt" id="explanation">
             <div>
-                <div class="flex justify-center">
+                <div class="lg:flex justify-center hidden">
                     <div class="imgContainer h-96 w-96 relative" tabindex="0">
                         <div class="info bg-purple-100 bg-opacity-30">
                             <h2 class="font-black text-3xl">Artist: <span x-text="octopus().name"></span></h2>
@@ -294,6 +295,31 @@
                             <h2 class="font-black text-3xl">Artist: <span x-text="ant().name"></span></h2>
                         </div>
                         <img :src="ant().artSrc" alt="" srcset="" class="object-contain">
+                    </div>
+                </div>
+                <div class="lg:hidden block w-screen overflow-x-scroll">
+                    <div class="grid grid-cols-12 gap-4 w-[300vw] flex">
+                        <div class="col-span-4 relative object-contain" tabindex="0">
+                            <div class="font-black text-xl">The Octopus</div>
+                            <div class="info bg-purple-100 bg-opacity-30">
+                                <h2 class="font-black text-3xl">Artist: <span x-text="octopus().name"></span></h2>
+                            </div>
+                            <img :src="octopus().artSrc" alt="" srcset="" class="object-contain object-top h-96">
+                        </div>
+                        <div class="col-span-4 relative object-contain" tabindex="0">
+                            <div class="font-black text-xl">The Bee</div>
+                            <div class="info bg-purple-100 bg-opacity-30">
+                                <h2 class="font-black text-3xl ">Artist: <span x-text="bee().name"></span></h2>
+                            </div>
+                            <img :src="bee().artSrc" alt="" srcset="" class="object-contain object-top h-96">
+                        </div>
+                        <div class="col-span-4 relative object-contain" tabindex="0">
+                            <div class="font-black text-xl">The Ant</div>
+                            <div class="info bg-purple-100 bg-opacity-30">
+                                <h2 class="font-black text-3xl">Artist: <span x-text="ant().name"></span></h2>
+                            </div>
+                            <img :src="ant().artSrc" alt="" srcset="" class="object-contain object-top h-96">
+                        </div>
                     </div>
                 </div>
             </div>
