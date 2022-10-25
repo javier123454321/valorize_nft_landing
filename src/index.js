@@ -37320,14 +37320,10 @@ utils.encode = function encode(arr, enc) {
 
 }).call(this)}).call(this,require("timers").setImmediate)
 },{"timers":3}],172:[function(require,module,exports){
-(() => {
-    setupAnimationsOnScroll()
-    setScrollToTop()
-    triggerMintModal()
-})()
 function triggerMintModal() {
     document.querySelectorAll("[data-toggleModal]").forEach(el => {
-        const modal = document.querySelector("#minting-modal")
+        const id = el.dataset.togglemodal
+        const modal = document.querySelector("#minting-modal-" + id)
         const body = document.body;
         el.addEventListener('click', (e) => {
             if (modal.classList.contains("hidden")) {
@@ -37371,25 +37367,29 @@ function setupAnimationsOnScroll() {
         observer.observe(intersection)
     })
 }
+
+setupAnimationsOnScroll()
+setScrollToTop()
+triggerMintModal()
 },{}],173:[function(require,module,exports){
 const artistInfo = {
     ant: [
-        { name: "Jaye", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Jaye_WEB.jpg" },
-        { name: "NFT Sammy", artSrc: "/img/nfts/ValorizeNFT_01_Silver_NFTSammy_WEB.jpg" },
-        { name: "Callum", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Callum_WEB.jpg" },
-        { name: "Angga", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Angga_WEB.jpg" }
+        { name: "Jaye", artSrc: "/img/nfts/diamond/jaye.jpg" },
+        { name: "NFT Sammy", artSrc: "/img/nfts/diamond/nftsammy.jpg" },
+        { name: "Callum", artSrc: "/img/nfts/diamond/callum.jpg" },
+        { name: "Angga", artSrc: "/img/nfts/diamond/angga.jpg" }
     ],
     octopus: [
-        { name: "Iqbal", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Iqbal_WEB.jpg" },
-        { name: "Joel", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Joel_WEB.jpg" },
-        { name: "Martin", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Mart_WEB.png" },
-        { name: "Nahuel", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Nahuel_WEB.jpg" }
+        { name: "Iqbal", artSrc: "/img/nfts/diamond/iqbal.jpg" },
+        { name: "Joel", artSrc: "/img/nfts/diamond/joel.jpg" },
+        { name: "Martin", artSrc: "/img/nfts/diamond/mart.jpg" },
+        { name: "Nahuel", artSrc: "/img/nfts/diamond/nahuel.jpg" }
     ],
     bee: [
-        { name: "Alana", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Alana_WEB.jpg" },
-        { name: "Calicho Art", artSrc: "/img/nfts/ValorizeNFT_01_Silver_CalichoArt_WEB.jpg" },
-        { name: "Neda", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Neda_WEB.jpg" },
-        { name: "QStorm", artSrc: "/img/nfts/ValorizeNFT_01_Silver_Qstom_WEB.jpg" }
+        { name: "Alana", artSrc: "/img/nfts/diamond/alana.jpg" },
+        { name: "Calicho Art", artSrc: "/img/nfts/diamond/calichoArt.jpg" },
+        { name: "Neda", artSrc: "/img/nfts/diamond/neda.jpg" },
+        { name: "QStorm", artSrc: "/img/nfts/diamond/qstom.jpg" }
     ]
 }
 function shuffle(array) {
@@ -37432,6 +37432,11 @@ exports.contractAddress = {
   "1" : "0x25E0A7767d03461EaF88b47cd9853722Fe05DFD3",
   "3" : "0x0cbE65F21B0a4775f90A5BdC2d90A0a1EB9A9Cdc"
 }
+exports.contractAddressMembership = {
+  "1": "0x73b3581157bba9831CB383d3E727E0eD0A4AF394",
+  "5": "0x7E73FF88483C51E12237A2e0F5375232167dDa46"
+}
+
 exports.abi=[
   {
     "inputs": [
@@ -38413,21 +38418,1142 @@ exports.abi=[
     "type": "function"
   }
 ]
+exports.abiMembership = [
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_URI",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_whaleCalls",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_sealCalls",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_planktonCalls",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_royaltyDistributorAddresses",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_royaltyRecipients",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "approved",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "rarity",
+        "type": "string"
+      }
+    ],
+    "name": "MintedTokenInfo",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "previousRecipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newRecipient",
+        "type": "address"
+      }
+    ],
+    "name": "RecipientUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ARTIST_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PRICE_PER_PLANKTON_TOKEN",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PRICE_PER_SEAL_TOKEN",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PRICE_PER_WHALE_TOKEN",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum MembershipNft.MintType",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "name": "TokenIdsByMintType",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "startingMycelia",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingMycelia",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingObsidian",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingObsidian",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingDiamond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingDiamond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingGold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingGold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startingSilver",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endingSilver",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "URI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "freeze",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getApproved",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "inquired",
+        "type": "address"
+      }
+    ],
+    "name": "getRoleName",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownerOf",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "planktonTokensLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "randomPlanktonMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "randomSealMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "randomWhaleMint",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "rarityByTokenId",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "royaltyDistributorAddresses",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_salePrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "royaltyInfo",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "royaltyAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "royaltyRecipients",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sealTokensLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "baseURI",
+        "type": "string"
+      }
+    ],
+    "name": "setURI",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenURI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "previousRecipient",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "newRecipient",
+        "type": "address"
+      }
+    ],
+    "name": "updateRoyaltyRecepient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "whaleTokensLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawEther",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
 },{}],175:[function(require,module,exports){
 const animation = require('./animation')
 const Alpine = require('alpinejs')
 const { mintModalProductNft } = require('./modal-logic')
 const { artistsData } = require('./artists')
+const { mintMembership } = require('./minting-membership')
 
 console.log(Alpine)
 Window.Alpine = Alpine.default
 Window.Alpine.data('mintModal', mintModalProductNft)
 Window.Alpine.data('artistsData', artistsData)
+Window.Alpine.data('mintMembership', mintMembership)
 Window.Alpine.start()
-},{"./animation":172,"./artists":173,"./modal-logic":176,"alpinejs":129}],176:[function(require,module,exports){
+},{"./animation":172,"./artists":173,"./minting-membership":176,"./modal-logic":177,"alpinejs":129}],176:[function(require,module,exports){
+const {
+    sendRequestMethodToEtherObject,
+    getTokenInfo,
+    getNetworkInfo,
+    getTokenInfo721,
+} = require("./utilities/nftMetadataUtils")
+const { contractAddressMembership, abiMembership } = require("./consts")
 const ethers = require("ethers")
+const { BigNumber } = ethers
+
+const artists = [
+    { shortName: "calichoart", fullName: 'Calicho Arevalo' },
+    { shortName: "alana", fullName: 'Alana McCarthy' },
+    { shortName: "nftsammy", fullName: 'Samantha Pordes' },
+    { shortName: "mart", fullName: 'Martin Aveling' },
+    { shortName: "nahuel", fullName: 'Nahuel Bardi' },
+    { shortName: "callum", fullName: 'Callum Pickard' },
+    { shortName: "joel", fullName: 'Joel Ntm' },
+    { shortName: "qstom", fullName: 'Carlos Nieto' },
+    { shortName: "neda", fullName: 'Neda Mamo' },
+    { shortName: "angga", fullName: 'Angga Tantama' },
+    { shortName: "jaye", fullName: 'Jaye Kang' },
+    { shortName: "iqbal", fullName: 'Iqbal Hakim Boo' },
+]
+const rarities = ["silver", "gold", "diamond", "obsidian", "mycelia"]
+const rarityDescriptors = {
+    "SILVER": "Silver rarity is the lowest rarity, there are 100 NFTs that share this art.",
+    "GOLD": "Gold rarity is the second lowest rarity, there are 60 NFTs that share this particular artwork. This is the lowest possible rarity for a Seal Mint function.",
+    "DIAMOND": "Diamond rarity is the third lowest rarity. There are only 20 NFTs that share this artwork. Diamond is the lowest rarity possible when you use the Whale Mint function.",
+    "OBSIDIAN": "Obsidian rarity is the second highest rarity. Only 5 NFTs will share this art.",
+    "MYCELIA": "Mycelia is the highest rarity. The mycelia NFTs are completely unique 1 of 1 artworks."
+}
+
+exports.mintMembership = function membership() {
+    return {
+        init() {
+            this.setupRandomPreview()
+        },
+        nfts: [
+            {
+                title: "Whale",
+                price: .3,
+                description: "Whale mint function is for whales",
+                mechanicsGraphic: "/img/mechanicsWhale.jpg",
+                previous: "Plankton",
+                next: "Seal",
+            },
+            {
+                title: "Seal",
+                price: .2,
+                description: "Seal mint function is for whales",
+                mechanicsGraphic: "/img/mechanicsSeal.jpg",
+                previous: "Whale",
+                next: "Plankton",
+            },
+            {
+                title: "Plankton",
+                price: .1,
+                description: "Plankton mint function is for everyone",
+                mechanicsGraphic: "/img/mechanicsPlankton.jpg",
+                previous: "Seal",
+                next: "Whale",
+            },
+        ],
+        randomRarity: 0,
+        randomArtistIndex: 0,
+        randomArtDescription: '',
+        setupRandomPreview() {
+            this.randomRarity = Math.round(Math.random() * 4)
+            this.randomArtistIndex = Math.round(Math.random() * 11)
+            this.randomArtDescription = rarityDescriptors[this.rarityString()]
+        },
+        nftPreviewImage() {
+            return '/img/nfts/' + rarities[this.randomRarity] + '/' + artists[this.randomArtistIndex].shortName + '.jpg'
+        },
+        rarityString() {
+            return rarities[this.randomRarity].toLocaleUpperCase()
+        },
+        randomArtist() {
+            return artists[this.randomArtistIndex].fullName
+        },
+        showDescription: false,
+        previousMint: '',
+        nextMint: '',
+        index: 0,
+        deployTx: {},
+        txLink: '',
+        nft() {
+            return this.nfts[this.index]
+        },
+        mintingErrorMsg: "",
+        mintingError: false,
+        minting: false,
+        minted: false,
+        mintingStatus: "",
+        tokenInfo: {},
+        async mint() {
+            this.mintingError = false
+            this.mintingErrorMsg = ''
+            this.mintingStatus = "Requesting your wallet to connect"
+            const hasProvider = await sendRequestMethodToEtherObject()
+            if (!hasProvider) {
+                this.setError("We requested you to connect your wallet, please do to continue")
+                return
+            }
+            this.mintingStatus = "Getting contract info"
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner()
+            const networkInfo = await getNetworkInfo(provider)
+            if (networkInfo.error) {
+                this.setError("Please connect to mainnet")
+                return
+            }
+            const membershipNft = new ethers.Contract(
+                contractAddressMembership[networkInfo.chainId],
+                abiMembership,
+                signer
+            )
+            const priceInEth = ethers.utils.parseEther(this.nfts[this.index].price.toString())
+            let receipt;
+            try {
+                this.mintingStatus = "Requesting transaction"
+                console.log("sending", priceInEth.toString())
+                this.mintingStatus = "Please confirm transaction"
+                const mintingFunction = ["randomWhaleMint", "randomSealMint", "randomPlanktonMint"][this.index]
+                const deployTx = await membershipNft[mintingFunction]({ value: priceInEth })
+                this.minting = true
+                this.mintingStatus = `<div class="pt-8 pb-2">Transaction submitted, minting now!</div>
+<div class="p-4 flex justify-center">
+    <img src="/img/puff.svg">
+</div>`
+                receipt = await deployTx.wait()
+                this.deployTx = receipt
+                this.txLink = `https://${networkInfo.chainId == '5' ? 'goerli.' : ''}etherscan.io/tx/${receipt.transactionHash}`
+                setTimeout(() => this.minted = true, 3000)
+                this.mintingStatus = `Minted!
+                <a 
+                    href='${this.txLink}'
+                    target="_blank"
+                    class="border-b pb-1">
+                    See your transaction here!
+                </a>`
+                console.log({ receipt })
+            } catch (err) {
+                this.mintingStatus = 'Error'
+                if (err.toString().search(/Batch sold out/) !== -1) {
+                    this.setError("Batch is sold out! Check soon and follow our twitter to find out about next batches")
+                    return
+                } else if (err.toString().search(/rarity is sold out/) !== -1) {
+                    this.setError("We are sold out of " + this.nft().title + " NFTS!")
+                    return
+                }
+                console.error(err)
+                this.setError("Error minting, Sorry! Please contact us to figure out what happened")
+            }
+            const info = await membershipNft.queryFilter(membershipNft.filters.MintedTokenInfo(), receipt.blockHash)
+            const event = info.find(e => e.transactionHash === receipt.transactionHash)
+            if (event) {
+                console.log({ event })
+                const tokenId = event.args.tokenId.toString()
+                const tokenInfo = await getTokenInfo721(membershipNft, tokenId)
+                if (tokenInfo) {
+                    console.log({ tokenInfo })
+                    this.tokenInfo = tokenInfo
+                    return
+                }
+            }
+            this.setError(`
+                    Somehow we got an error getting your token info. <br>
+                    <a class="border-b pb-1" href='${this.txLink}}'>
+                        You can see it here: 
+                    </a>
+                `)
+        },
+        setError(msg) {
+            this.minting = false
+            this.mintingError = true
+            this.mintingErrorMsg = msg
+        },
+    }
+}
+},{"./consts":174,"./utilities/nftMetadataUtils":178,"ethers":152}],177:[function(require,module,exports){
+const ethers = require("ethers")
+console.log({ethers})
 const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
+const {
+    sendRequestMethodToEtherObject,
+    getTokenInfo1155,
+    getTokenInfo721,
+    getNetworkInfo,
+} = require("./utilities/nftMetadataUtils")
 
 exports.mintModalProductNft = function mintModalProductNFT() {
     return {
@@ -38547,7 +39673,7 @@ exports.mintModalProductNft = function mintModalProductNFT() {
             const event = info.find(e => e.transactionHash === receipt.transactionHash)
             if (event) {
                 const tokenId = event.args.tokenId.toString()
-                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                const tokenInfo = await getTokenInfo1155(productNft, tokenId)
                 if (tokenInfo) {
                     tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
@@ -38573,14 +39699,6 @@ exports.mintModalProductNft = function mintModalProductNFT() {
         }
     }
 }
-async function sendRequestMethodToEtherObject() {
-    try {
-        await ethereum.request({ method: "eth_requestAccounts" })
-        return true
-    } catch (err) {
-        return false
-    }
-}
 
 /**
  * @param {string} rarity
@@ -38594,6 +39712,17 @@ function getUrlPublic(rarity) {
     }
     return urls[rarity]
 }
+},{"./consts":174,"./utilities/nftMetadataUtils":178,"ethers":152}],178:[function(require,module,exports){
+const ethers = require("ethers")
+
+async function sendRequestMethodToEtherObject() {
+    try {
+        await ethereum.request({ method: "eth_requestAccounts" })
+        return true
+    } catch (err) {
+        return false
+    }
+}
 
 /**
  * Needs the instantiated contract object and returns the metadata
@@ -38601,8 +39730,23 @@ function getUrlPublic(rarity) {
  * @param {string} tokenId
  * @returns {{title: string, animation_url:string, properties:object}}
  */
-async function getTokenInfo(nftContractInstance, tokenId) {
+async function getTokenInfo1155(nftContractInstance, tokenId) {
     const url = await nftContractInstance.uri(tokenId)
+    const req = await fetch(url)
+    console.log({url})
+    if (!req.ok) return 
+    console.log({req})
+    return req.json()
+}
+
+/**
+ * Needs the instantiated contract object and returns the metadata
+ * @param {ethers.Contract} nftContractInstance
+ * @param {string} tokenId
+ * @returns {{title: string, animation_url:string, properties:object}}
+ */
+ async function getTokenInfo721(nftContractInstance, tokenId) {
+    const url = await nftContractInstance.tokenURI(tokenId)
     const req = await fetch(url)
     console.log({url})
     if (!req.ok) return 
@@ -38613,9 +39757,9 @@ async function getTokenInfo(nftContractInstance, tokenId) {
 async function getNetworkInfo(provider) {
     const networkData = await provider.getNetwork()
     const chainId = networkData.chainId.toString()
-    console.log({ chainId })
+    console.log("connected to network: ", { chainId })
 
-    if (!["1", "3"].includes(chainId)) return { chainId, error: true, msg: "Incorrect Chain" }
+    if (!["1", "3", "5"].includes(chainId)) return { chainId, error: true, msg: "Incorrect Chain" }
     provider.on("network", async (newNetwork, oldNetwork) => {
         if (oldNetwork) {
             if (!["1", "3"].includes(newNetwork.chainId.toString())) {
@@ -38625,4 +39769,12 @@ async function getNetworkInfo(provider) {
     })
     return { chainId, error: false }
 }
-},{"./consts":174,"ethers":152}]},{},[175]);
+
+module.exports = {
+    sendRequestMethodToEtherObject,
+    getTokenInfo1155,
+    getTokenInfo721,
+    getNetworkInfo,
+}
+    
+},{"ethers":152}]},{},[175]);
