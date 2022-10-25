@@ -39504,6 +39504,7 @@ exports.mintMembership = function membership() {
                 </a>`
                 console.log({ receipt })
             } catch (err) {
+                this.mintingStatus = 'Error'
                 if (err.toString().search(/Batch sold out/) !== -1) {
                     this.setError("Batch is sold out! Check soon and follow our twitter to find out about next batches")
                     return
@@ -39521,6 +39522,7 @@ exports.mintMembership = function membership() {
                 const tokenId = event.args.tokenId.toString()
                 const tokenInfo = await getTokenInfo721(membershipNft, tokenId)
                 if (tokenInfo) {
+                    console.log({ tokenInfo })
                     tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
                     return

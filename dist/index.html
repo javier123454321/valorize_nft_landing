@@ -94,40 +94,42 @@
                 <h1 class="text-white font-black text-4xl py-4 text-center flex items-center justify-center">
                     Mint a &nbsp;<span x-text="nft().title"></span>&nbsp; NFT
                 </h1>
-                <div class="flex justify-center pb-4">
-                    <button @click="() => showDescription = !showDescription"
-                        class="flex mt-12 bg-slate-800 font-black px-4 py-2 rounded">
-                        <div>
-                            <span x-show="!showDescription">Show Minting Statistics</span>
-                            <span x-show="showDescription">Show Art Preview</span>
-                        </div>
-                    </button>
-                </div>
-                <div class="max-w-xl mx-auto" x-show="showDescription">
-                    <img :src="nft().mechanicsGraphic" alt="" srcset="" class="h-100 px-4 lg:px-0">
-                </div>
-                <div class="object-contain lg:flex flex-col lg:flex-row" x-show="!showDescription">
-                    <div class="lg:w-1/2 lg:h-96 px-12 lg:px-0 flex justify-center">
-                        <img :src="nftPreviewImage()" alt="" class="rotateImg h-96 max-w-96 object-contain rounded">
-                    </div>
-                    <div class="lg:w-1/2 flex flex-col justify-between px-4 lg:px-0 mt-4 lg:mt-0">
-                        <div class="font-black text-2xl">Artist: <br><span class="text-slate-50"
-                                x-text="randomArtist()"></span></div>
-                        <div class="font-black text-2xl">Rarity: <br><span class="text-slate-50"
-                                x-text="rarityString()"></span></div>
-                        <div class="font-black mt-4">About this NFT: <br><span class="text-slate-50"
-                                x-text="randomArtDescription"></span></div>
-                        <button @click="setupRandomPreview"
-                            class="px-4 py-2 rounded bg-slate-800 flex items-center justify-center h-12 w-48">
-                            Random Preview
-                            <div class="h-8 w-8 flex items-center justify-center">
-                                <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                </svg>
+                <div x-show="!minting">
+                    <div class="flex justify-center pb-4">
+                        <button @click="() => showDescription = !showDescription"
+                            class="flex mt-12 bg-slate-800 font-black px-4 py-2 rounded">
+                            <div>
+                                <span x-show="!showDescription">Show Minting Statistics</span>
+                                <span x-show="showDescription">Show Art Preview</span>
                             </div>
                         </button>
+                    </div>
+                    <div class="max-w-xl mx-auto" x-show="showDescription">
+                        <img :src="nft().mechanicsGraphic" alt="" srcset="" class="h-100 px-4 lg:px-0">
+                    </div>
+                    <div class="object-contain lg:flex flex-col lg:flex-row" x-show="!showDescription">
+                        <div class="lg:w-1/2 lg:h-96 px-12 lg:px-0 flex justify-center">
+                            <img :src="nftPreviewImage()" alt="" class="rotateImg h-96 max-w-96 object-contain rounded">
+                        </div>
+                        <div class="lg:w-1/2 flex flex-col justify-between px-4 lg:px-0 mt-4 lg:mt-0">
+                            <div class="font-black text-2xl">Artist: <br><span class="text-slate-50"
+                                    x-text="randomArtist()"></span></div>
+                            <div class="font-black text-2xl">Rarity: <br><span class="text-slate-50"
+                                    x-text="rarityString()"></span></div>
+                            <div class="font-black mt-4">About this NFT: <br><span class="text-slate-50"
+                                    x-text="randomArtDescription"></span></div>
+                            <button @click="setupRandomPreview"
+                                class="px-4 py-2 rounded bg-slate-800 flex items-center justify-center h-12 w-48">
+                                Random Preview
+                                <div class="h-8 w-8 flex items-center justify-center">
+                                    <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center mt-8 font-black text-3xl">Price <span x-text="nft().price"></span></div>
