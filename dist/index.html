@@ -165,7 +165,7 @@
                     <p x-html="mintingStatus"></p>
                 </div>
             </div>
-            <div class="bg-black col-span-8 col-start-2" x-show="minted">
+            <div class="bg-black col-span-10 lg:col-span-8 lg:col-start-2 text-white " x-show="minted">
                 <h1 
                     class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
                     x-text="tokenInfo.title">
@@ -173,11 +173,10 @@
                 <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id :
                     <span x-text="tokenInfo.properties.token_id"></span>
                 </h2>
-                <div class="flex justify-center">
-                    <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"
-                        allow="autoplay; fullscreen" allowfullscreen></iframe>
+                <div class="lg:h-96 px-12 lg:px-0 flex justify-center">
+                    <img :src="tokenInfo.image_url" alt="" class="rotateImg h-96 max-w-96 object-contain rounded">
                 </div>
-                <div class="w-[640px] mx-auto text-white">
+                <div class="w-[640px] mx-auto mt-8 text-white">
                     <p>
                         <span class="font-bold text-lg">Token Rarity:</span><span
                             x-text="tokenInfo.properties.rarity.value"></span>
@@ -185,11 +184,12 @@
                     <p class="font-bold text-lg">Benefits:
                     </p>
                     <template x-for="benefit in tokenInfo.properties.rarity.benefits">
-                        <p x-text="benefit"></p>
+                        <div>
+                            <p x-text="benefit" ></p>
+                        </div>
                     </template>
-                    <a :href="txLink" class="border-b pb-1">See Your Deployment Transaction</a>
-                    <p>To cash out this token, reach out to us in <a href="https://valorize.app"
-                            class="border-b pb-1">Our Website</a></p>
+                    <a :href="txLink" class="border-b pb-1">See Your Deployment Transaction</a> <br>
+                    <a href="https://discord.gg/3PRMWrH9DT" target="_blank"  class="border-b pb-1 my-2">Please show off your NFT on discord!</a>
                 </div>
             </div>
             </div>

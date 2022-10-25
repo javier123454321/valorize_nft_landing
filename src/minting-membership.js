@@ -93,6 +93,7 @@ exports.mintMembership = function membership() {
         minting: false,
         minted: false,
         mintingStatus: "",
+        tokenInfo: {},
         async mint() {
             this.mintingError = false
             this.mintingErrorMsg = ''
@@ -160,7 +161,6 @@ exports.mintMembership = function membership() {
                 const tokenInfo = await getTokenInfo721(membershipNft, tokenId)
                 if (tokenInfo) {
                     console.log({ tokenInfo })
-                    tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
                     return
                 }

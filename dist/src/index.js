@@ -37433,6 +37433,7 @@ exports.contractAddress = {
   "3" : "0x0cbE65F21B0a4775f90A5BdC2d90A0a1EB9A9Cdc"
 }
 exports.contractAddressMembership = {
+  "1": "0x73b3581157bba9831CB383d3E727E0eD0A4AF394",
   "5": "0x7E73FF88483C51E12237A2e0F5375232167dDa46"
 }
 
@@ -39456,6 +39457,7 @@ exports.mintMembership = function membership() {
         minting: false,
         minted: false,
         mintingStatus: "",
+        tokenInfo: {},
         async mint() {
             this.mintingError = false
             this.mintingErrorMsg = ''
@@ -39523,7 +39525,6 @@ exports.mintMembership = function membership() {
                 const tokenInfo = await getTokenInfo721(membershipNft, tokenId)
                 if (tokenInfo) {
                     console.log({ tokenInfo })
-                    tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
                     return
                 }
