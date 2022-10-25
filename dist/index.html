@@ -159,8 +159,35 @@
                 <div class="flex flex-col items-center justify-center" x-transition x-show="!minting">
                     <p x-html="mintingErrorMsg" class="text-white"></p>
                 </div>
-                <div class="flex justify-center text-white" x-show="minting" x-transition>
+                <div class="flex justify-center text-white" x-transition>
                     <p x-html="mintingStatus"></p>
+                </div>
+            </div>
+            <div class="bg-black col-span-8 col-start-2" x-show="minted">
+                <h1 
+                    class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
+                    x-text="tokenInfo.title">
+                </h1>
+                <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id :
+                    <span x-text="tokenInfo.properties.token_id"></span>
+                </h2>
+                <div class="flex justify-center">
+                    <iframe :src="tokenInfo.urlPublic" width="640" height="564" frameborder="0"
+                        allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+                <div class="w-[640px] mx-auto text-white">
+                    <p>
+                        <span class="font-bold text-lg">Token Rarity:</span><span
+                            x-text="tokenInfo.properties.rarity.value"></span>
+                    </p>
+                    <p class="font-bold text-lg">Benefits:
+                    </p>
+                    <template x-for="benefit in tokenInfo.properties.rarity.benefits">
+                        <p x-text="benefit"></p>
+                    </template>
+                    <a :href="txLink" class="border-b pb-1">See Your Deployment Transaction</a>
+                    <p>To cash out this token, reach out to us in <a href="https://valorize.app"
+                            class="border-b pb-1">Our Website</a></p>
                 </div>
             </div>
             </div>
@@ -250,7 +277,7 @@
             <div class="bg-black col-span-8 col-start-2" x-show="minted"">
                 <h1 
                     class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
-                x-text="tokenInfo.title">
+                    x-text="tokenInfo.title">
                 </h1>
                 <h2 class="text-white font-black text-2xl text-center flex items-center justify-center pb-2">token id :
                     <span x-text="tokenInfo.properties.token_id"></span>

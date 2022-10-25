@@ -39365,6 +39365,7 @@ const {
     sendRequestMethodToEtherObject,
     getTokenInfo,
     getNetworkInfo,
+    getTokenInfo721,
 } = require("./utilities/nftMetadataUtils")
 const { contractAddressMembership, abiMembership } = require("./consts")
 const ethers = require("ethers")
@@ -39482,7 +39483,7 @@ exports.mintMembership = function membership() {
             try {
                 this.mintingStatus = "Requesting transaction"
                 console.log("sending", priceInEth.toString())
-                this.mintingStatus = "Waiting for transaction to confirm"
+                this.mintingStatus = "Please confirm transaction"
                 const mintingFunction = ["randomWhaleMint", "randomSealMint", "randomPlanktonMint"][this.index]
                 const deployTx = await membershipNft[mintingFunction]({ value: priceInEth })
                 this.minting = true
@@ -39492,7 +39493,7 @@ exports.mintMembership = function membership() {
 </div>`
                 receipt = await deployTx.wait()
                 this.deployTx = receipt
-                this.txLink = `https://${networkInfo.chainId == '3' ? 'ropsten.' : ''}etherscan.io/tx/${receipt.transactionHash}`
+                this.txLink = `https://${networkInfo.chainId == '5' ? 'goerli.' : ''}etherscan.io/tx/${receipt.transactionHash}`
                 setTimeout(() => this.minted = true, 3000)
                 this.mintingStatus = `Minted!
                 <a 
@@ -39518,7 +39519,7 @@ exports.mintMembership = function membership() {
             if (event) {
                 console.log({ event })
                 const tokenId = event.args.tokenId.toString()
-                const tokenInfo = await getTokenInfo(membershipNft, tokenId)
+                const tokenInfo = await getTokenInfo721(membershipNft, tokenId)
                 if (tokenInfo) {
                     tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
