@@ -4,7 +4,8 @@ const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
 const {
     sendRequestMethodToEtherObject,
-    getTokenInfo,
+    getTokenInfo1155,
+    getTokenInfo721,
     getNetworkInfo,
 } = require("./utilities/nftMetadataUtils")
 
@@ -126,7 +127,7 @@ exports.mintModalProductNft = function mintModalProductNFT() {
             const event = info.find(e => e.transactionHash === receipt.transactionHash)
             if (event) {
                 const tokenId = event.args.tokenId.toString()
-                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                const tokenInfo = await getTokenInfo1155(productNft, tokenId)
                 if (tokenInfo) {
                     tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo

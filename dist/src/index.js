@@ -37323,7 +37323,6 @@ utils.encode = function encode(arr, enc) {
 function triggerMintModal() {
     document.querySelectorAll("[data-toggleModal]").forEach(el => {
         const id = el.dataset.togglemodal
-        console.log({ id })
         const modal = document.querySelector("#minting-modal-" + id)
         const body = document.body;
         el.addEventListener('click', (e) => {
@@ -39367,35 +39366,23 @@ const {
     getTokenInfo,
     getNetworkInfo,
 } = require("./utilities/nftMetadataUtils")
+const { contractAddressMembership, abiMembership } = require("./consts")
 const ethers = require("ethers")
+const { BigNumber } = ethers
 
-const artistFullNames = [
-    'Calicho Arevalo',
-    'Alana McCarthy',
-    'Samantha Pordes',
-    'Martin Aveling',
-    'Nahuel Bardi',
-    'Callum Pickard',
-    'Joel Ntm',
-    'Carlos Nieto',
-    'Neda Mamo',
-    'Angga Tantama',
-    'Jaye Kang',
-    'Iqbal Hakim Boo',
-]
 const artists = [
-    { shortName: "calichoart", fullName:'Calicho Arevalo', },
-    { shortName: "alana", fullName: 'Alana McCarthy'},
+    { shortName: "calichoart", fullName: 'Calicho Arevalo' },
+    { shortName: "alana", fullName: 'Alana McCarthy' },
     { shortName: "nftsammy", fullName: 'Samantha Pordes' },
-    { shortName: "mart", fullName:'Martin Aveling', },
-    { shortName: "nahuel", fullName:'Nahuel Bardi', },
-    { shortName: "callum", fullName:'Callum Pickard', },
-    { shortName: "joel", fullName:'Joel Ntm', },
-    { shortName: "qstom", fullName:'Carlos Nieto', },
-    { shortName: "neda", fullName:  'Neda Mamo',},
-    { shortName: "angga", fullName:'Angga Tantama', },
-    { shortName: "jaye", fullName: 'Jaye Kang', },
-    { shortName: "iqbal", fullName:'Iqbal Hakim Boo', },
+    { shortName: "mart", fullName: 'Martin Aveling' },
+    { shortName: "nahuel", fullName: 'Nahuel Bardi' },
+    { shortName: "callum", fullName: 'Callum Pickard' },
+    { shortName: "joel", fullName: 'Joel Ntm' },
+    { shortName: "qstom", fullName: 'Carlos Nieto' },
+    { shortName: "neda", fullName: 'Neda Mamo' },
+    { shortName: "angga", fullName: 'Angga Tantama' },
+    { shortName: "jaye", fullName: 'Jaye Kang' },
+    { shortName: "iqbal", fullName: 'Iqbal Hakim Boo' },
 ]
 const rarities = ["silver", "gold", "diamond", "obsidian", "mycelia"]
 const rarityDescriptors = {
@@ -39479,26 +39466,25 @@ exports.mintMembership = function membership() {
             }
             this.mintingStatus = "Getting contract info"
             const provider = new ethers.providers.Web3Provider(window.ethereum)
-            const signer = provider.getSigner();
+            const signer = provider.getSigner()
             const networkInfo = await getNetworkInfo(provider)
-            console.log({ networkInfo })
             if (networkInfo.error) {
                 this.setError("Please connect to mainnet")
+                return
             }
-            const productNft = new ethers.Contract(
-                contractAddress[networkInfo.chainId],
-                abi,
+            const membershipNft = new ethers.Contract(
+                contractAddressMembership[networkInfo.chainId],
+                abiMembership,
                 signer
             )
             const priceInEth = ethers.utils.parseEther(this.nfts[this.index].price.toString())
-                .mul(BigNumber.from(this.nfts[this.index].amountToMint));
             let receipt;
             try {
                 this.mintingStatus = "Requesting transaction"
                 console.log("sending", priceInEth.toString())
                 this.mintingStatus = "Waiting for transaction to confirm"
-                const mintingFunction = ["rarestBatchMint", "rareBatchMint", "rarerBatchMint"][this.index]
-                const deployTx = await productNft[mintingFunction](this.nfts[this.index].amountToMint, { value: priceInEth })
+                const mintingFunction = ["randomWhaleMint", "randomSealMint", "randomPlanktonMint"][this.index]
+                const deployTx = await membershipNft[mintingFunction]({ value: priceInEth })
                 this.minting = true
                 this.mintingStatus = `<div class="pt-8 pb-2">Transaction submitted, minting now!</div>
 <div class="p-4 flex justify-center">
@@ -39524,20 +39510,22 @@ exports.mintMembership = function membership() {
                     this.setError("We are sold out of " + this.nft().title + " NFTS!")
                     return
                 }
+                console.error(err)
                 this.setError("Error minting, Sorry! Please contact us to figure out what happened")
             }
-            const info = await productNft.queryFilter(productNft.filters.MintedTokenInfo(), receipt.blockHash)
+            const info = await membershipNft.queryFilter(membershipNft.filters.MintedTokenInfo(), receipt.blockHash)
             const event = info.find(e => e.transactionHash === receipt.transactionHash)
             if (event) {
+                console.log({ event })
                 const tokenId = event.args.tokenId.toString()
-                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                const tokenInfo = await getTokenInfo(membershipNft, tokenId)
                 if (tokenInfo) {
                     tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
                     return
-                } 
+                }
             }
-                this.setError(`
+            this.setError(`
                     Somehow we got an error getting your token info. <br>
                     <a class="border-b pb-1" href='${this.txLink}}'>
                         You can see it here: 
@@ -39551,14 +39539,15 @@ exports.mintMembership = function membership() {
         },
     }
 }
-},{"./utilities/nftMetadataUtils":178,"ethers":152}],177:[function(require,module,exports){
+},{"./consts":174,"./utilities/nftMetadataUtils":178,"ethers":152}],177:[function(require,module,exports){
 const ethers = require("ethers")
 console.log({ethers})
 const { abi, contractAddress } = require("./consts")
 const { BigNumber } = ethers
 const {
     sendRequestMethodToEtherObject,
-    getTokenInfo,
+    getTokenInfo1155,
+    getTokenInfo721,
     getNetworkInfo,
 } = require("./utilities/nftMetadataUtils")
 
@@ -39680,7 +39669,7 @@ exports.mintModalProductNft = function mintModalProductNFT() {
             const event = info.find(e => e.transactionHash === receipt.transactionHash)
             if (event) {
                 const tokenId = event.args.tokenId.toString()
-                const tokenInfo = await getTokenInfo(productNft, tokenId)
+                const tokenInfo = await getTokenInfo1155(productNft, tokenId)
                 if (tokenInfo) {
                     tokenInfo.urlPublic = getUrlPublic(this.nft().title.toLowerCase())
                     this.tokenInfo = tokenInfo
@@ -39737,8 +39726,23 @@ async function sendRequestMethodToEtherObject() {
  * @param {string} tokenId
  * @returns {{title: string, animation_url:string, properties:object}}
  */
-async function getTokenInfo(nftContractInstance, tokenId) {
+async function getTokenInfo1155(nftContractInstance, tokenId) {
     const url = await nftContractInstance.uri(tokenId)
+    const req = await fetch(url)
+    console.log({url})
+    if (!req.ok) return 
+    console.log({req})
+    return req.json()
+}
+
+/**
+ * Needs the instantiated contract object and returns the metadata
+ * @param {ethers.Contract} nftContractInstance
+ * @param {string} tokenId
+ * @returns {{title: string, animation_url:string, properties:object}}
+ */
+ async function getTokenInfo721(nftContractInstance, tokenId) {
+    const url = await nftContractInstance.tokenURI(tokenId)
     const req = await fetch(url)
     console.log({url})
     if (!req.ok) return 
@@ -39749,9 +39753,9 @@ async function getTokenInfo(nftContractInstance, tokenId) {
 async function getNetworkInfo(provider) {
     const networkData = await provider.getNetwork()
     const chainId = networkData.chainId.toString()
-    console.log({ chainId })
+    console.log("connected to network: ", { chainId })
 
-    if (!["1", "3"].includes(chainId)) return { chainId, error: true, msg: "Incorrect Chain" }
+    if (!["1", "3", "5"].includes(chainId)) return { chainId, error: true, msg: "Incorrect Chain" }
     provider.on("network", async (newNetwork, oldNetwork) => {
         if (oldNetwork) {
             if (!["1", "3"].includes(newNetwork.chainId.toString())) {
@@ -39764,7 +39768,8 @@ async function getNetworkInfo(provider) {
 
 module.exports = {
     sendRequestMethodToEtherObject,
-    getTokenInfo,
+    getTokenInfo1155,
+    getTokenInfo721,
     getNetworkInfo,
 }
     
