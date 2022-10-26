@@ -1,0 +1,1 @@
+exports.isMobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;

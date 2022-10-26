@@ -146,9 +146,14 @@ exports.mintModalProductNft = function mintModalProductNFT() {
             this.mintingError = true
             this.mintingErrorMsg = msg
         },
-        tokenInfo: {
+        tokenInfo: {        
+            image_url: '',
             properties: {
-                token_id: 0
+                token_id: 0,
+                rarity: {
+                    value: '',
+                    benefits:[]
+                }
             }
         }
     }

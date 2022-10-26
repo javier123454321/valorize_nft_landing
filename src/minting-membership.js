@@ -6,6 +6,7 @@ const {
 } = require("./utilities/nftMetadataUtils")
 const { contractAddressMembership, abiMembership } = require("./consts")
 const ethers = require("ethers")
+const { isMobile } = require('./utilities/isMobile')
 const { BigNumber } = ethers
 
 const artists = [
@@ -35,6 +36,9 @@ exports.mintMembership = function membership() {
     return {
         init() {
             this.setupRandomPreview()
+            if(!window.ethereum){
+                this.hasProvider = false
+            }
         },
         nfts: [
             {
@@ -42,24 +46,24 @@ exports.mintMembership = function membership() {
                 price: .3,
                 description: "Whale mint function is for whales",
                 mechanicsGraphic: "/img/mechanicsWhale.jpg",
-                previous: "Plankton",
-                next: "Seal",
+                previous: "Seal",
+                next: "Plankton",
             },
             {
                 title: "Seal",
                 price: .2,
                 description: "Seal mint function is for whales",
                 mechanicsGraphic: "/img/mechanicsSeal.jpg",
-                previous: "Whale",
-                next: "Plankton",
+                previous: "Plankton",
+                next: "Whale",
             },
             {
                 title: "Plankton",
                 price: .1,
                 description: "Plankton mint function is for everyone",
                 mechanicsGraphic: "/img/mechanicsPlankton.jpg",
-                previous: "Seal",
-                next: "Whale",
+                previous: "Whale",
+                next: "Seal",
             },
         ],
         randomRarity: 0,
@@ -93,7 +97,18 @@ exports.mintMembership = function membership() {
         minting: false,
         minted: false,
         mintingStatus: "",
-        tokenInfo: {},
+        tokenInfo: {
+            image_url: '',
+            properties: {
+                token_id: 0,
+                rarity: {
+                    value: '',
+                    benefits:[]
+                }
+            }
+        },
+        isMobile: isMobile,
+        hasProvider: true,
         async mint() {
             this.mintingError = false
             this.mintingErrorMsg = ''
