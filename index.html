@@ -10,7 +10,7 @@
     <link href="./output.css" rel="stylesheet">
     <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
     <script defer src="./src/index.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
 </head>
 
 <body class="">
@@ -91,82 +91,94 @@
             </svg>
         </button>
         <div class="grid grid-cols-10 bg-black bg-opacity-50 w-screen h-screen overflow-y-scroll">
-            <div class="bg-black col-span-10 lg:col-span-8 lg:col-start-2 text-white " x-show="!minted">
+            <div class="bg-black col-span-10 lg:col-span-8 lg:col-start-2 text-white" x-show="!minted">
                 <h1 class="text-white font-black text-4xl py-4 text-center flex items-center justify-center">
                     Mint a &nbsp;<span x-text="nft().title"></span>&nbsp; NFT
                 </h1>
-                <div x-show="!minting">
-                    <div class="flex justify-center pb-4">
-                        <button @click="() => showDescription = !showDescription"
-                            class="flex mt-12 bg-slate-800 font-black px-4 py-2 rounded">
-                            <div>
-                                <span x-show="!showDescription">Show Minting Statistics</span>
-                                <span x-show="showDescription">Show Art Preview</span>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="max-w-xl mx-auto" x-show="showDescription">
-                        <img :src="nft().mechanicsGraphic" alt="" srcset="" class="h-100 px-4 lg:px-0">
-                    </div>
-                    <div class="object-contain lg:flex flex-col lg:flex-row" x-show="!showDescription">
-                        <div class="lg:w-1/2 lg:h-96 px-12 lg:px-0 flex justify-center">
-                            <img :src="nftPreviewImage()" alt="" class="rotateImg h-96 max-w-96 object-contain rounded">
-                        </div>
-                        <div class="lg:w-1/2 flex flex-col justify-between px-4 lg:px-0 mt-4 lg:mt-0">
-                            <div class="font-black text-2xl">Artist: <br><span class="text-slate-50"
-                                    x-text="randomArtist()"></span></div>
-                            <div class="font-black text-2xl">Rarity: <br><span class="text-slate-50"
-                                    x-text="rarityString()"></span></div>
-                            <div class="font-black mt-4">About this NFT: <br><span class="text-slate-50"
-                                    x-text="randomArtDescription"></span></div>
-                            <button @click="setupRandomPreview"
-                                class="px-4 py-2 rounded bg-slate-800 flex items-center justify-center h-12 w-48">
-                                Random Preview
-                                <div class="h-8 w-8 flex items-center justify-center">
-                                    <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                    </svg>
+                <div class="flex flex-col-reverse" x-show="hasProvider">
+                    <div x-show="!minting">
+                        <div class="flex justify-center pb-4">
+                            <button @click="() => showDescription = !showDescription"
+                                class="flex mt-12 bg-slate-800 font-black px-4 py-2 rounded">
+                                <div>
+                                    <span x-show="!showDescription">Show Minting Statistics</span>
+                                    <span x-show="showDescription">Show Art Preview</span>
                                 </div>
                             </button>
                         </div>
+                        <div class="max-w-xl mx-auto" x-show="showDescription">
+                            <img :src="nft().mechanicsGraphic" alt="" srcset="" class="h-100 px-4 lg:px-0">
+                        </div>
+                        <div class="object-contain lg:flex flex-col lg:flex-row" x-show="!showDescription">
+                            <div class="lg:w-1/2 lg:h-96 px-12 lg:px-0 flex justify-center">
+                                <img :src="nftPreviewImage()" alt="" class="rotateImg h-96 max-w-96 object-contain rounded">
+                            </div>
+                            <div class="lg:w-1/2 flex flex-col justify-between px-4 lg:px-0 mt-4 lg:mt-0">
+                                <div class="font-black text-2xl">Artist: <br><span class="text-slate-50"
+                                        x-text="randomArtist()"></span></div>
+                                <div class="font-black text-2xl">Rarity: <br><span class="text-slate-50"
+                                        x-text="rarityString()"></span></div>
+                                <div class="font-black mt-4">About this NFT: <br><span class="text-slate-50"
+                                        x-text="randomArtDescription"></span></div>
+                                <button @click="setupRandomPreview"
+                                    class="px-4 py-2 rounded bg-slate-800 flex items-center justify-center h-12 w-48">
+                                    Random Preview
+                                    <div class="h-8 w-8 flex items-center justify-center">
+                                        <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8 font-black text-3xl">Price <span x-text="nft().price"></span></div>
+                    <div class="flex justify-between my-8" id="minting-buttons">
+                        <button
+                            class="flex flex-col text-center lg:px-12 w-1/6 hover-leftBtn lg:ml-4 hover:bg-slate-800 hover:ml-0 duration-500"
+                            @click="() => index = (index + 1) % 3">
+                            <span x-text="nft().previous"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </button>
+                        <div class="w-1/2 flex justify-center">
+                            <button class="p-4 rounded bg-blue-800" @click="mint"><span x-text="nft().title"></span> Mint</button>
+                        </div>
+                        <button
+                            class="flex flex-col text-center lg:px-12 w-1/6 items-end lg:mr-4 hover:bg-slate-800 hover:mr-0 duration-500"
+                            @click="() => index = (index + 2) % 3">
+                            <span x-text="nft().next"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex flex-col items-center justify-center" x-transition x-show="!minting">
+                        <p x-html="mintingErrorMsg" class="text-white"></p>
+                    </div>
+                    <div class="flex justify-center text-white" x-transition>
+                        <p x-html="mintingStatus"></p>
                     </div>
                 </div>
-                <div class="text-center mt-8 font-black text-3xl">Price <span x-text="nft().price"></span></div>
-                <div class="flex justify-between my-8">
-                    <button
-                        class="flex flex-col text-center lg:px-12 w-1/6 hover-leftBtn lg:ml-4 hover:bg-slate-800 hover:ml-0 duration-500"
-                        @click="() => index = (index + 2) % 3">
-                        <span x-text="nft().previous"></span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </button>
-                    <div class="w-1/2 flex justify-center">
-                        <button class="p-4 rounded bg-blue-800" @click="mint"><span x-text="nft().title"></span> Mint</button>
+                <div class="text-center" x-show="!hasProvider">
+                    <div>We can't connect to the blockchain in this browser.</div>
+                    <div x-show="isMobile">
+                        You need to go to your Metamask app, Coinbase Wallet, or another service with this capability</div>
+                    <div x-show="!isMobile">
+                        You need to install an extension like <a href="https://metamask.io/" target="_blank">metamask</a> to mint an NFT
                     </div>
-                    <button
-                        class="flex flex-col text-center lg:px-12 w-1/6 items-end lg:mr-4 hover:bg-slate-800 hover:mr-0 duration-500"
-                        @click="() => index = (index + 1) % 3">
-                        <span x-text="nft().next"></span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex flex-col items-center justify-center" x-transition x-show="!minting">
-                    <p x-html="mintingErrorMsg" class="text-white"></p>
-                </div>
-                <div class="flex justify-center text-white" x-transition>
-                    <p x-html="mintingStatus"></p>
                 </div>
             </div>
-            <div class="bg-black col-span-10 lg:col-span-8 lg:col-start-2 text-white " x-show="minted">
+            <div
+                class="bg-black col-span-10 lg:col-span-8 lg:col-start-2 text-white "
+                x-show="minted">
                 <h1 
                     class=" text-white font-black text-4xl py-4 text-center flex items-center justify-center"
                     x-text="tokenInfo.title">
