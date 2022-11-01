@@ -1,20 +1,30 @@
 function triggerMintModal() {
+    let modalShouldBeOpen;
+    for(const [key, value] of new URL(window.location.href).searchParams.entries()){
+        if(key === "mint") {
+            modalShouldBeOpen = value
+        }
+    }
     document.querySelectorAll("[data-toggleModal]").forEach(el => {
         const id = el.dataset.togglemodal
-        const modal = document.querySelector("#minting-modal-" + id)
-        const body = document.body;
-        el.addEventListener('click', (e) => {
-            if (modal.classList.contains("hidden")) {
-                const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-                body.style.height = '100vh';
-                body.style.overflowY = 'hidden';
-            } else {
-                body.style.height = '';
-                body.style.overflowY = 'scroll';
-            }
-            modal.classList.toggle("hidden")
-        })
+        el.addEventListener('click', triggerModal(id))
     })
+    modalShouldBeOpen && triggerModal(modalShouldBeOpen)()
+}
+function triggerModal(id) {
+    const body = document.body;
+    const modal = document.querySelector("#minting-modal-" + id)
+    return function(e) {
+        if (modal.classList.contains("hidden")) {
+            const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+            body.style.height = '100vh';
+            body.style.overflowY = 'hidden';
+        } else {
+            body.style.height = '';
+            body.style.overflowY = 'scroll';
+        }
+        modal.classList.toggle("hidden")
+    }
 }
 function setScrollToTop() {
     document.querySelectorAll("[data-scrollToTop]").forEach(el => {
