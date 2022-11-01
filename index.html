@@ -169,8 +169,14 @@
                 </div>
                 <div class="text-center" x-show="!hasProvider">
                     <div>We can't connect to the blockchain in this browser.</div>
-                    <div x-show="isMobile">
-                        You need to go to your Metamask app, Coinbase Wallet, or another service with this capability</div>
+                    <div x-show="isMobile" class="flex flex-col items-center">
+                        You need to go to one of the following applications:<br>
+                        <a class="mt-8 mx-auto" href="https://metamask.app.link/dapp/nft.valorize.app?mint=membership"> <img src="./img/wallet_mm.png" class="object-scale-down  w-12 h-12 rounded" alt="" srcset=""></a>
+                        <br> 
+                        <a class="my-4 mx-auto" href=https://go.cb-w.com/dapp?cb_url=https%3A%2F%2Fnft.valorize.app%2F%3Fmint%3Dmembership
+                        ">
+                            <img src="./img/wallet_cb.webp" class="object-scale-down  w-12 h-12 rounded" alt="" srcset="">
+                        </a>, <br>or another service with web3 capabilities</div>
                     <div x-show="!isMobile">
                         You need to install an extension like <a href="https://metamask.io/" target="_blank">metamask</a> to mint an NFT
                     </div>
